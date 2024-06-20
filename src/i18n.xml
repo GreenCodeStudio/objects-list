@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+    <node name="mainPage">
+        <value lang="pl">Strona główna</value>
+        <value lang="en">Main page</value>
+    </node>
+    <node name="objectList">
+        <node name="search">
+            <value lang="pl">Szukaj</value>
+            <value lang="en">Search</value>
+        </node>
+        <node name="paginationMode">
+            <value lang="pl">Tryb paginacji</value>
+            <value lang="en">Pagination mode</value>
+        </node>
+        <node name="scrollMode">
+            <value lang="pl">Tryb scrollowania</value>
+            <value lang="en">Scroll mode</value>
+        </node>
+        <node name="tableView">
+            <value lang="pl">Widok tabeli</value>
+            <value lang="en">Table view</value>
+        </node>
+        <node name="listView">
+            <value lang="pl">Widok listy</value>
+            <value lang="en">List view</value>
+        </node>
+        <node name="startMultiEdit">
+            <value lang="pl">Rozpocznij edycję wielu</value>
+            <value lang="en">Start multi-edit</value>
+        </node>
+        <node name="saveRow">
+            <value lang="pl">Zapisz wiersz</value>
+            <value lang="en">Save a row</value>
+        </node>
+        <node name="mode">
+            <value lang="pl">Tryb</value>
+            <value lang="en">Mode</value>
+        </node>
+        <node name="view">
+            <value lang="pl">Widok</value>
+            <value lang="en">View</value>
+        </node>
+        <node name="columnEnabled">
+            <value lang="pl">Kolumna widoczna</value>
+            <value lang="en">Column enabled</value>
+        </node>
+        <node name="columnName">
+            <value lang="pl">Nazwa kolumny</value>
+            <value lang="en">Column name</value>
+        </node>
+        <node name="columnFilter">
+            <value lang="pl">Filtr</value>
+            <value lang="en">Filter</value>
+        </node>
+    </node>
+    <node name="filter">
+        <node name="none">
+            <value lang="pl">Brak</value>
+            <value lang="en">None</value>
+        </node>
+        <node name="equals">
+            <value lang="pl">Równa się</value>
+            <value lang="en">Equals</value>
+        </node>
+        <node name="lessThan">
+            <value lang="pl">Mniejsze niż</value>
+            <value lang="en">Less than</value>
+        </node>
+        <node name="greaterThan">
+            <value lang="pl">Większe niż</value>
+            <value lang="en">Greater than</value>
+        </node>
+        <node name="contains">
+            <value lang="pl">Zawiera</value>
+            <value lang="en">Contains</value>
+        </node>
+        <node name="oneOf">
+            <value lang="pl">Jedno z</value>
+            <value lang="en">One of</value>
+        </node>
+        <node name="empty">
+            <value lang="pl">Puste</value>
+            <value lang="en">Empty</value>
+        </node>
+    </node>
+</root>
