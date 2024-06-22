@@ -6,7 +6,8 @@ import {fileURLToPath} from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 export default {
     entry: {
-        index: './src/index.js'
+        index: './src/index.js',
+        style: './src/style/objectsList.scss',
     },
     output: {
         path: path.resolve(__dirname, './dist'),
@@ -23,6 +24,13 @@ export default {
             {
                 test: /\.mpts$/,
                 use: ["mpts-loader"]
+            },{
+                test: /\.scss$/,
+                use: [
+                    "css-loader", // translates CSS into CommonJS
+                    "sass-loader" // compiles Sass to CSS, using Node Sass by default
+                ]
+
             }
         ]
     },

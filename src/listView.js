@@ -37,7 +37,9 @@ export class ListView extends AbstractView {
     }
 
     fillRowContent(tr, data) {
-        tr.children.removeAll();
+        while(tr.firstChild){
+            tr.removeChild(tr.firstChild)
+        }
         tr.append(create('.icon', {className: this.objectsList.icon}));
         for (let column of this.objectsList.visibleColumns) {
             let keyValue = create('.keyValue');

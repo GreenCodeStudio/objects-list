@@ -1,3 +1,4 @@
+@import "@green-code-studio/context-menu/src/contextMenu.scss";
 data-view {
     border: 1px solid var(--second);
     display: flex;
@@ -37,8 +38,8 @@ data-view {
                 height: 19px;
 
                 &.ableToSort {
-                    @extend .icon;
-                    @extend .icon-down;
+                    //@extend .icon;
+                    //@extend .icon-down;
 
                     &::before {
                         transform: scaleY(0);

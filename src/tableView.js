@@ -76,7 +76,9 @@ export class TableView extends AbstractView {
 
     fillRowContent(tr, data) {
         tr.lastData = data;
-        tr.children.removeAll();
+        while(tr.firstChild){
+            tr.removeChild(tr.firstChild)
+        }
         tr.append(create('.td.icon', {className: this.objectsList.icon}));
         for (let column of this.objectsList.visibleColumns) {
             let td = create('.td');
@@ -168,10 +170,10 @@ export class TableView extends AbstractView {
                 return x.lastElementChild.getBoundingClientRect().right - x.getBoundingClientRect().left + parseFloat(getComputedStyle(x).paddingRight);
             else
                 return 0;
-        }).max());
+        }).reduce((a, b) => Math.max(a, b), 0));
         needed.push({base: actionWidth, grow: 0});
-        let availableToGrow = this.clientWidth - needed.sum(x => x.base);
-        let sumGrow = needed.sum(x => x.grow);
+        let availableToGrow = this.clientWidth - needed.map(x => x.base).reduce((a, b) => a + b, 0);
+        let sumGrow = needed.map(x => x.grow).reduce((a, b) => a + b, 0);
         if (availableToGrow > 0 && sumGrow > 0) {
             return needed.map(x => x.base + x.grow / sumGrow * availableToGrow);
         } else {

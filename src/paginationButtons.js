@@ -10,7 +10,9 @@ export class PaginationButtons extends HTMLElement {
 
     render() {
         let pagination = this.getPagination();
-        this.children.removeAll();
+        while(this.firstChild){
+            this.removeChild(this.firstChild)
+        }
         for (let pageNumber of pagination) {
             if (pageNumber == null) {
                 this.append(create('span', {text: '...'}));
