@@ -6,7 +6,9 @@
  * or disable the default devtool with "devtool: false".
  * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
  */
-/******/ var __webpack_modules__ = ({
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
 
 /***/ "./node_modules/@green-code-studio/internationalization/i18nNode.js":
 /*!**************************************************************************!*\
@@ -95,6 +97,16 @@ eval("\n\nfunction ownKeys(object, enumerableOnly) { var keys = Object.keys(obje
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n\n/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(variables){const _0=document.createDocumentFragment();const _1=document.createElement(\"form\");const _2=document.createTextNode(\"\\r\\n    \");_1.append(_2);const _3=document.createElement(\"label\");const _4=document.createTextNode(\"\\r\\n        \");_3.append(_4);const _5=document.createElement(\"span\");const _6=document.createTextNode(variables[\"t\"](\"objectList.mode\"));_5.append(_6);_3.append(_5);const _7=document.createTextNode(\"\\r\\n        \");_3.append(_7);const _8=document.createElement(\"select\");const _9=\"mode\";if(typeof _9==='function')_8[\"class\"]=_9;else if(_9!== undefined&&_9!== null&&_9!== false) _8.setAttribute(\"class\",_9);const _10=document.createTextNode(\"\\r\\n            \");_8.append(_10);const _11=document.createElement(\"option\");const _12=\"paginationMode\";if(typeof _12==='function')_11[\"value\"]=_12;else if(_12!== undefined&&_12!== null&&_12!== false) _11.setAttribute(\"value\",_12);const _13=document.createTextNode(variables[\"t\"](\"objectList.paginationMode\"));_11.append(_13);_8.append(_11);const _14=document.createTextNode(\"\\r\\n            \");_8.append(_14);const _15=document.createElement(\"option\");const _16=\"scrollMode\";if(typeof _16==='function')_15[\"value\"]=_16;else if(_16!== undefined&&_16!== null&&_16!== false) _15.setAttribute(\"value\",_16);const _17=document.createTextNode(variables[\"t\"](\"objectList.scrollMode\"));_15.append(_17);_8.append(_15);const _18=document.createTextNode(\"\\r\\n        \");_8.append(_18);_3.append(_8);const _19=document.createTextNode(\"\\r\\n    \");_3.append(_19);_1.append(_3);const _20=document.createTextNode(\"\\r\\n    \");_1.append(_20);const _21=document.createElement(\"label\");const _22=document.createTextNode(\"\\r\\n        \");_21.append(_22);const _23=document.createElement(\"span\");const _24=document.createTextNode(variables[\"t\"](\"objectList.view\"));_23.append(_24);_21.append(_23);const _25=document.createTextNode(\"\\r\\n        \");_21.append(_25);const _26=document.createElement(\"select\");const _27=\"view\";if(typeof _27==='function')_26[\"class\"]=_27;else if(_27!== undefined&&_27!== null&&_27!== false) _26.setAttribute(\"class\",_27);const _28=document.createTextNode(\"\\r\\n            \");_26.append(_28);const _29=document.createElement(\"option\");const _30=\"tableView\";if(typeof _30==='function')_29[\"value\"]=_30;else if(_30!== undefined&&_30!== null&&_30!== false) _29.setAttribute(\"value\",_30);const _31=document.createTextNode(variables[\"t\"](\"objectList.tableView\"));_29.append(_31);_26.append(_29);const _32=document.createTextNode(\"\\r\\n            \");_26.append(_32);const _33=document.createElement(\"option\");const _34=\"listView\";if(typeof _34==='function')_33[\"value\"]=_34;else if(_34!== undefined&&_34!== null&&_34!== false) _33.setAttribute(\"value\",_34);const _35=document.createTextNode(variables[\"t\"](\"objectList.listView\"));_33.append(_35);_26.append(_33);const _36=document.createTextNode(\"\\r\\n        \");_26.append(_36);_21.append(_26);const _37=document.createTextNode(\"\\r\\n    \");_21.append(_37);_1.append(_21);const _38=document.createTextNode(\"\\r\\n    \");_1.append(_38);let _39=document.createDocumentFragment();for(let [_foreachKey,_foreachValue] of Object.entries(variables[\"categories\"])){let category = _foreachValue;const _40=document.createTextNode(\"\\r\\n        \");_39.append(_40);const _41=document.createTextNode(category[\"name\"]);_39.append(_41);const _42=document.createTextNode(\"\\r\\n\\r\\n        \");_39.append(_42);const _43=document.createElement(\"table\");const _44=document.createTextNode(\"\\r\\n            \");_43.append(_44);const _45=document.createElement(\"thead\");const _46=document.createTextNode(\"\\r\\n            \");_45.append(_46);const _47=document.createElement(\"tr\");const _48=document.createTextNode(\"\\r\\n                \");_47.append(_48);const _49=document.createElement(\"th\");const _50=document.createTextNode(variables[\"t\"](\"objectList.columnEnabled\"));_49.append(_50);_47.append(_49);const _51=document.createTextNode(\"\\r\\n                \");_47.append(_51);const _52=document.createElement(\"th\");const _53=document.createTextNode(variables[\"t\"](\"objectList.columnName\"));_52.append(_53);_47.append(_52);const _54=document.createTextNode(\"\\r\\n                \");_47.append(_54);const _55=document.createElement(\"th\");const _56=document.createTextNode(variables[\"t\"](\"objectList.columnFilter\"));_55.append(_56);_47.append(_55);const _57=document.createTextNode(\"\\r\\n            \");_47.append(_57);_45.append(_47);const _58=document.createTextNode(\"\\r\\n            \");_45.append(_58);_43.append(_45);const _59=document.createTextNode(\"\\r\\n            \");_43.append(_59);const _60=document.createElement(\"tbody\");const _61=document.createTextNode(\"\\r\\n\\r\\n            \");_60.append(_61);let _62=document.createDocumentFragment();for(let [_foreachKey,_foreachValue] of Object.entries(category[\"columns\"])){let column = _foreachValue;const _63=document.createTextNode(\"\\r\\n                \");_62.append(_63);const _64=document.createElement(\"tr\");const _65=document.createTextNode(\"\\r\\n                    \");_64.append(_65);const _66=document.createElement(\"td\");const _67=document.createTextNode(\"\\r\\n                        \");_66.append(_67);const _68=document.createElement(\"input\");const _69=\"checkbox\";if(typeof _69==='function')_68[\"type\"]=_69;else if(_69!== undefined&&_69!== null&&_69!== false) _68.setAttribute(\"type\",_69);const _70=column[\"dataName\"];if(typeof _70==='function')_68[\"data-name\"]=_70;else if(_70!== undefined&&_70!== null&&_70!== false) _68.setAttribute(\"data-name\",_70);_66.append(_68);const _71=document.createTextNode(\"\\r\\n                    \");_66.append(_71);_64.append(_66);const _72=document.createTextNode(\"\\r\\n                    \");_64.append(_72);const _73=document.createElement(\"td\");const _74=document.createTextNode(\"\\r\\n                        \");_73.append(_74);const _75=document.createTextNode(column[\"name\"]);_73.append(_75);const _76=document.createTextNode(\"\\r\\n                    \");_73.append(_76);_64.append(_73);const _77=document.createTextNode(\"\\r\\n                    \");_64.append(_77);const _78=document.createElement(\"td\");const _79=\"filter\";if(typeof _79==='function')_78[\"class\"]=_79;else if(_79!== undefined&&_79!== null&&_79!== false) _78.setAttribute(\"class\",_79);const _80=column[\"dataName\"];if(typeof _80==='function')_78[\"data-name\"]=_80;else if(_80!== undefined&&_80!== null&&_80!== false) _78.setAttribute(\"data-name\",_80);const _81=document.createTextNode(\"\\r\\n\\r\\n                    \");_78.append(_81);_64.append(_78);const _82=document.createTextNode(\"\\r\\n                \");_64.append(_82);_62.append(_64);const _83=document.createTextNode(\"\\r\\n            \");_62.append(_83);}_60.append(_62);const _84=document.createTextNode(\"\\r\\n            \");_60.append(_84);_43.append(_60);const _85=document.createTextNode(\"\\r\\n        \");_43.append(_85);_39.append(_43);const _86=document.createTextNode(\"\\r\\n    \");_39.append(_86);}_1.append(_39);const _87=document.createTextNode(\"\\r\\n\");_1.append(_87);_0.append(_1);const _88=document.createTextNode(\"\\r\\n\");_0.append(_88);return _0}\n\n\n//# sourceURL=webpack://@green-code-studio/objects-list/./src/ConfigPopup.mpts?");
+
+/***/ }),
+
+/***/ "./demo/demo.js":
+/*!**********************!*\
+  !*** ./demo/demo.js ***!
+  \**********************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _src_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../src/index.js */ \"./src/index.js\");\n\r\n\r\n\r\nconsole.log('aa');\r\nconst dataSource={\r\n    async get(options){\r\n        return {\r\n            rows:[\r\n                {id:1, name:'John'},\r\n                {id:2, name:'Doe'},\r\n                {id:3, name:'Smith'},\r\n            ]\r\n        }\r\n    }\r\n}\r\nconst objectList=new _src_index_js__WEBPACK_IMPORTED_MODULE_0__.ObjectsList(dataSource)\r\n\n\n//# sourceURL=webpack://@green-code-studio/objects-list/./demo/demo.js?");
 
 /***/ }),
 
@@ -208,72 +220,67 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 /***/ })
 
-/******/ });
+/******/ 	});
 /************************************************************************/
-/******/ // The module cache
-/******/ var __webpack_module_cache__ = {};
-/******/ 
-/******/ // The require function
-/******/ function __webpack_require__(moduleId) {
-/******/ 	// Check if module is in cache
-/******/ 	var cachedModule = __webpack_module_cache__[moduleId];
-/******/ 	if (cachedModule !== undefined) {
-/******/ 		return cachedModule.exports;
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
 /******/ 	}
-/******/ 	// Create a new module (and put it into the cache)
-/******/ 	var module = __webpack_module_cache__[moduleId] = {
-/******/ 		// no module.id needed
-/******/ 		// no module.loaded needed
-/******/ 		exports: {}
-/******/ 	};
-/******/ 
-/******/ 	// Execute the module function
-/******/ 	__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
-/******/ 
-/******/ 	// Return the exports of the module
-/******/ 	return module.exports;
-/******/ }
-/******/ 
+/******/ 	
 /************************************************************************/
-/******/ /* webpack/runtime/define property getters */
-/******/ (() => {
-/******/ 	// define getter functions for harmony exports
-/******/ 	__webpack_require__.d = (exports, definition) => {
-/******/ 		for(var key in definition) {
-/******/ 			if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
-/******/ 				Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
 /******/ 			}
-/******/ 		}
-/******/ 	};
-/******/ })();
-/******/ 
-/******/ /* webpack/runtime/hasOwnProperty shorthand */
-/******/ (() => {
-/******/ 	__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
-/******/ })();
-/******/ 
-/******/ /* webpack/runtime/make namespace object */
-/******/ (() => {
-/******/ 	// define __esModule on exports
-/******/ 	__webpack_require__.r = (exports) => {
-/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 		}
-/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 	};
-/******/ })();
-/******/ 
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
 /************************************************************************/
-/******/ 
-/******/ // startup
-/******/ // Load entry module and return exports
-/******/ // This entry module can't be inlined because the eval devtool is used.
-/******/ var __webpack_exports__ = __webpack_require__("./src/index.js");
-/******/ var __webpack_exports__AbstractView = __webpack_exports__.AbstractView;
-/******/ var __webpack_exports__ColumnFilter = __webpack_exports__.ColumnFilter;
-/******/ var __webpack_exports__ConfigPopup = __webpack_exports__.ConfigPopup;
-/******/ var __webpack_exports__ListView = __webpack_exports__.ListView;
-/******/ var __webpack_exports__ObjectsList = __webpack_exports__.ObjectsList;
-/******/ var __webpack_exports__TableView = __webpack_exports__.TableView;
-/******/ export { __webpack_exports__AbstractView as AbstractView, __webpack_exports__ColumnFilter as ColumnFilter, __webpack_exports__ConfigPopup as ConfigPopup, __webpack_exports__ListView as ListView, __webpack_exports__ObjectsList as ObjectsList, __webpack_exports__TableView as TableView };
-/******/ 
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module can't be inlined because the eval devtool is used.
+/******/ 	var __webpack_exports__ = __webpack_require__("./demo/demo.js");
+/******/ 	
+/******/ })()
+;

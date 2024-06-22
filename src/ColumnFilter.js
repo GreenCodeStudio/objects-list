@@ -1,17 +1,20 @@
 
 import {t} from './i18n.xml';
+import {create} from "fast-creator";
 export class ColumnFilter extends HTMLElement {
     constructor(props) {
         super(props);
-        this.select = this.addChild('select')
-        this.select.addChild('option', {value: 'none', text: t('filter.none')})
-        this.select.addChild('option', {value: 'equals', text: t('filter.equals')})
-        this.select.addChild('option', {value: 'less', text: t('filter.lessThan')})
-        this.select.addChild('option', {value: 'more', text: t('filter.greaterThan')})
-        this.select.addChild('option', {value: 'contains', text: t('filter.contains')})
-        this.select.addChild('option', {value: 'oneOf', text: t('filter.oneOf')})
-        this.select.addChild('option', {value: 'empty', text: t('filter.empty')})
-        this.input = this.addChild('input')
+        this.select = create('select')
+        this.appendChild(this.select)
+        this.select.append(create('option', {value: 'none', text: t('filter.none')}))
+        this.select.append(create('option', {value: 'equals', text: t('filter.equals')}))
+        this.select.append(create('option', {value: 'less', text: t('filter.lessThan')}))
+        this.select.append(create('option', {value: 'more', text: t('filter.greaterThan')}))
+        this.select.append(create('option', {value: 'contains', text: t('filter.contains')}))
+        this.select.append(create('option', {value: 'oneOf', text: t('filter.oneOf')}))
+        this.select.append(create('option', {value: 'empty', text: t('filter.empty')}))
+        this.input = create('input')
+        this.appendChild(this.input)
         this.input.oninput = () => this.emit();
         this.select.onchange = () => {
             this.updateInput();

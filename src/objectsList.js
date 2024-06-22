@@ -6,6 +6,7 @@ import {ContextMenu} from "@green-code-studio/context-menu/dist/index.mjs";
 import {ConcurencyLimiter} from "./utils/concurencyLimiter.js";
 import {IdsSet} from "./idsSet.js";
 import {ConfigPopup} from "./ConfigPopup.js";
+import {create} from "fast-creator";
 
 export class ObjectsList extends HTMLElement {
     constructor(datasource) {
@@ -103,8 +104,10 @@ export class ObjectsList extends HTMLElement {
     }
 
     initFoot() {
-        this.foot = this.addChild('.foot');
-        let menuButton = this.foot.addChild('button.menuButton span.icon-settings');
+        this.foot = create('.foot');
+        this.append(this.foot);
+        let menuButton = create('button.menuButton span.icon-settings');
+        this.foot.append(menuButton)
         menuButton.onclick = e => this.showConfigPopup();
         this.pagination = new PaginationButtons();
         this.pagination.onpageclick = (page) => {
@@ -112,13 +115,15 @@ export class ObjectsList extends HTMLElement {
             this.refresh();
         }
         this.foot.append(this.pagination);
-        this.searchForm = this.foot.addChild('form', {className: 'search'});
+        this.searchForm = create('form', {className: 'search'});
+        this.foot.append(this.searchForm);
         this.searchForm.onsubmit = e => e.preventDefault();
-        const searchInput = this.searchForm.addChild('input', {
+        const searchInput = create('input', {
             name: 'search',
             type: 'search',
             placeholder: t('objectList.search')
         });
+        this.searchForm.append(create(searchInput));
         searchInput.oninput = e => {
             this.start = 0;
             this.refresh();

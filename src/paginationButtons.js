@@ -1,3 +1,5 @@
+import {create} from "fast-creator";
+
 export class PaginationButtons extends HTMLElement {
     constructor() {
         super();
@@ -11,12 +13,13 @@ export class PaginationButtons extends HTMLElement {
         this.children.removeAll();
         for (let pageNumber of pagination) {
             if (pageNumber == null) {
-                this.addChild('span', {text: '...'});
+                this.append(create('span', {text: '...'}));
             } else {
-                let pageButton = this.addChild('button', {
+                let pageButton = create('button', {
                     text: pageNumber + 1,
                     className: pageNumber == this.currentPage ? 'active' : ''
                 });
+                this.append(pageButton);
                 pageButton.onclick = () => {
                     if (this.onpageclick) {
                         this.onpageclick(pageNumber);

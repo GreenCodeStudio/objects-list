@@ -5,6 +5,7 @@
     "author": "Mateusz Krawczyk",
     "license": "MIT",
     "type": "module",
+    "repository": "https://github.com/GreenCodeStudio/objects-list",
     "scripts": {
         "startDemo": "webpack serve --config webpack.config.demo.js --mode development",
         "buildDemo": "webpack --config webpack.config.demo.js --mode development",

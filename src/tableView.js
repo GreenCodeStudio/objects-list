@@ -28,10 +28,11 @@ export class TableView extends AbstractView {
     refreshHeader() {
         while (this.head.firstChild) this.head.firstChild.remove();
 
-        this.head.addChild('.column.icon')
+        this.head.append(create('.column.icon'))
         for (let column of this.objectsList.visibleColumns) {
-            let node = this.head.addChild('.column')
-            node.addChild('span.name', {text: column.name});
+            let node = create('.column')
+            this.head.append(node);
+            node.append(create('span.name', {text: column.name}));
             if (column.sortName) {
                 node.classList.add('ableToSort');
                 node.dataset.sortName = column.sortName
@@ -49,7 +50,7 @@ export class TableView extends AbstractView {
                 }
             }
         }
-        this.head.addChild('.column.actions')
+        this.head.append(create('.column.actions'))
     }
 
     loadData(data, start, limit, infiniteScrollEnabled) {
@@ -65,7 +66,7 @@ export class TableView extends AbstractView {
     generateRow(data) {
         let tr = this.body.querySelector(`.tr[data-row="${data.id}"]`);
         if (!tr) {
-            tr = document.create('.tr');
+            tr = create('.tr');
             tr.draggable = true;
         }
         tr.classList.toggle('selected', this.objectsList.selected.has(data.id))
@@ -76,22 +77,24 @@ export class TableView extends AbstractView {
     fillRowContent(tr, data) {
         tr.lastData = data;
         tr.children.removeAll();
-        tr.addChild('.td.icon', {className: this.objectsList.icon});
+        tr.append(create('.td.icon', {className: this.objectsList.icon}));
         for (let column of this.objectsList.visibleColumns) {
-            let td = tr.addChild('.td');
+            let td = create('.td');
+            tr.append(td);
             if (this.multiEdit && column.dataName) {
                 tr.dataset.id = data.id;
-                td.addChild('input', {
+                td.append(create('input', {
                     data: {name: column.dataName},
                     value: data[column.dataName],
                     onclick: e => e.stopPropagation(),
                     onchange: () => this.multiEditChanged(tr)
-                });
+                }));
             } else {
                 td.append(column.content?.call(column, data) || data[column.dataName] || '');
             }
         }
-        let actionsTd = tr.addChild('.td.actions');
+        let actionsTd = create('.td.actions');
+        tr.append(actionsTd);
         let actions = this.objectsList.generateActions([data], 'row');
         if (this.multiEdit && data.__isMultirowEdited) {
             actions = [
@@ -105,9 +108,10 @@ export class TableView extends AbstractView {
             ]
         }
         for (let action of actions) {
-            let actionButton = actionsTd.addChild(action.href ? 'a.button' : 'button', {
+            let actionButton = create(action.href ? 'a.button' : 'button', {
                 title: action.name
             });
+            actionsTd.append(create(actionButton));
             actionButton.classList.add('action-' + (action.action ?? 'view'));
 
             if (action.href) {
@@ -117,7 +121,7 @@ export class TableView extends AbstractView {
                 actionButton.onclick = action.command;
             }
             if (action.icon) {
-                actionButton.addChild('span', {classList: [action.icon]});
+                actionButton.append(create('span', {classList: [action.icon]}));
             } else {
                 actionButton.textContent = action.name;
             }
