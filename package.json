@@ -1,6 +1,6 @@
 {
     "name": "@green-code-studio/objects-list",
-    "version": "0.1.8",
+    "version": "1.0.0",
     "main": "src/index.js",
     "author": "Mateusz Krawczyk",
     "license": "MIT",
@@ -12,7 +12,7 @@
         "build": "webpack --config webpack.config.js --mode development"
     },
     "dependencies": {
-        "@green-code-studio/context-menu": "^0.1.0",
+        "@green-code-studio/context-menu": "^1.0.0",
         "@green-code-studio/internationalization": "^1.0.4",
         "fast-creator": "^1.6.0"
     },
