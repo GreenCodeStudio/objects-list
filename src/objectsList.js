@@ -71,6 +71,19 @@ export class ObjectsList extends HTMLElement {
             this.pagination.totalPages = Math.ceil(this.total / this.limit);
             this.pagination.render();
         });
+        while(this.filterShortContainer.firstChild){
+            this.filterShortContainer.firstChild.remove()
+        }
+        if(this.columnFilters.size)
+        {
+            this.filterShortContainer.append(create('span', {text: t('objectList.filtersCount')+': '+this.columnFilters.size}));
+            const clearButton=create('button', {text: t('objectList.clearFilters')});
+            clearButton.onclick=()=>{
+                this.columnFilters.clear();
+                this.refresh();
+            }
+            this.filterShortContainer.append(clearButton);
+        }
     }
 
     initInsideView() {
@@ -115,6 +128,8 @@ export class ObjectsList extends HTMLElement {
             this.refresh();
         }
         this.foot.append(this.pagination);
+        this.filterShortContainer = create('.filterShortContainer');
+        this.foot.append(this.filterShortContainer);
         this.searchForm = create('form', {className: 'search'});
         this.foot.append(this.searchForm);
         this.searchForm.onsubmit = e => e.preventDefault();

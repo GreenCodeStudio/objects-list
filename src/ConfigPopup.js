@@ -9,7 +9,11 @@ export class ConfigPopup extends HTMLElement {
         super();
         this.append(template({
             t,
-            categories: [...objectsList.columns.groupBy(c => c.category)]
+            categories: Object.entries(objectsList.columns.reduce((o,c) => {
+                 o[c.category] = (o[c.category] ?? [])
+                o[c.category].push(c);
+                 return o;
+            }, {}))
                 .map(([category, columns]) => ({name: category ?? '', columns}))
         }))
         this.querySelector('.mode').onchange = () => {

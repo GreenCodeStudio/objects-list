@@ -49,6 +49,14 @@
             <value lang="pl">Filtr</value>
             <value lang="en">Filter</value>
         </node>
+        <node name="filtersCount">
+            <value lang="pl">Liczba filtrów</value>
+            <value lang="en">Filters count</value>
+        </node>
+        <node name="clearFilters">
+            <value lang="pl">Wyczyść filtry</value>
+            <value lang="en">Clear filters</value>
+        </node>
     </node>
     <node name="filter">
         <node name="none">
