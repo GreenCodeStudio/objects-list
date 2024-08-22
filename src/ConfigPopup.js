@@ -27,10 +27,11 @@ export class ConfigPopup extends HTMLElement {
                 objectsList.insideViewClass = ListView
             objectsList.refresh()
         }
-        this.addEventListener('blur', () => {
-            if (!this.matches(':focus-within, :focus'))
-                this.remove();
-        })
+        // this.addEventListener('blur', () => {
+        //     console.log('blur')
+        //     if (!this.matches(':focus-within, :focus'))
+        //         this.remove();
+        // })
         this.querySelector('select').focus()
         console.log('ssss')
         for (const checkbox of this.querySelectorAll('table input[type="checkbox"]')) {
