@@ -57,6 +57,10 @@
             <value lang="pl">Wyczyść filtry</value>
             <value lang="en">Clear filters</value>
         </node>
+        <node name="search">
+            <value lang="pl">Szukaj</value>
+            <value lang="en">Search</value>
+        </node>
     </node>
     <node name="filter">
         <node name="none">
