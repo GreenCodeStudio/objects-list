@@ -38,6 +38,11 @@ export class ColumnFilter extends HTMLElement {
     emit() {
         this.dispatchEvent(new CustomEvent('x-filter', {detail: {type: this.select.value, value: this.input.value}}))
     }
+    set({type, value}) {
+        this.select.value = type;
+        this.input.value = value;
+        this.updateInput();
+    }
 }
 
 

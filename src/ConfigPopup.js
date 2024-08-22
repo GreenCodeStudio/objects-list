@@ -53,6 +53,11 @@ export class ConfigPopup extends HTMLElement {
                 objectsList.columnFilters.set(filterContainer.dataset.name, e.detail)
                 objectsList.refresh()
             });
+            const current=objectsList.columnFilters.get(filterContainer.dataset.name)
+            if(current) {
+                console.log('ffff')
+                filter.set(current)
+            }
         }
 
         this.querySelector('[type="search"]').oninput = (event) => {
