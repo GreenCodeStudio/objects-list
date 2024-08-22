@@ -14,7 +14,7 @@ export class ConfigPopup extends HTMLElement {
                 o[c.category].push(c);
                 return o;
             }, {}))
-                .map(([category, columns]) => ({name: category=='undefined'?'':category, columns}))
+                .map(([category, columns]) => ({name: category == 'undefined' ? '' : category, columns}))
         }))
         this.querySelector('.mode').onchange = () => {
             objectsList.infiniteScrollEnabled = this.querySelector('.mode').value == 'scrollMode'
@@ -53,29 +53,37 @@ export class ConfigPopup extends HTMLElement {
                 objectsList.columnFilters.set(filterContainer.dataset.name, e.detail)
                 objectsList.refresh()
             });
-            const current=objectsList.columnFilters.get(filterContainer.dataset.name)
-            if(current) {
+            const current = objectsList.columnFilters.get(filterContainer.dataset.name)
+            if (current) {
                 console.log('ffff')
                 filter.set(current)
             }
         }
 
         this.querySelector('[type="search"]').oninput = (event) => {
-            for (const table of this.querySelectorAll('.categoryTableContainer')) {
-                let anyVisible = false;
-                for (const row of table.querySelectorAll('tbody tr')) {
-                    const visible = row.children[1].textContent.toLowerCase().includes(event.target.value.toLowerCase())
-                    row.style.display = visible ? '' : 'none'
-                    if (visible)
-                        anyVisible = true;
-                }
-                table.style.display = anyVisible ? '' : 'none'
-            }
+            objectsList.configPopupSearch = event.target.value
+            this.refreshSearch(event.target.value)
         }
-
+        if (objectsList.configPopupSearch) {
+            this.querySelector('[type="search"]').value = objectsList.configPopupSearch
+            this.refreshSearch(objectsList.configPopupSearch)
+        }
         this.tabIndex = 0
         setTimeout(() => this.focus(), 1)
         setTimeout(() => this.checkFocus(), 100)
+    }
+
+    refreshSearch(value) {
+        for (const table of this.querySelectorAll('.categoryTableContainer')) {
+            let anyVisible = false;
+            for (const row of table.querySelectorAll('tbody tr')) {
+                const visible = row.children[1].textContent.toLowerCase().includes(value.toLowerCase())
+                row.style.display = visible ? '' : 'none'
+                if (visible)
+                    anyVisible = true;
+            }
+            table.style.display = anyVisible ? '' : 'none'
+        }
     }
 
     checkFocus() {
