@@ -14,10 +14,12 @@ const dataSource={
     }
 }
 const objectList=new ObjectsList(dataSource)
+objectList.paramsInUrl=true;
 objectList.columns=[
     {dataName:'id', title:'ID'},
     {dataName:'name', title:'Name'},
 ]
 objectList.style.height='500px';
 document.body.appendChild(objectList);
+objectList.readUrl()
 objectList.refresh();

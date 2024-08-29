@@ -71,18 +71,68 @@ export class ObjectsList extends HTMLElement {
             this.pagination.totalPages = Math.ceil(this.total / this.limit);
             this.pagination.render();
         });
-        while(this.filterShortContainer.firstChild){
+        while (this.filterShortContainer.firstChild) {
             this.filterShortContainer.firstChild.remove()
         }
-        if(this.columnFilters.size)
-        {
-            this.filterShortContainer.append(create('span', {text: t('objectList.filtersCount')+': '+this.columnFilters.size}));
-            const clearButton=create('button', {text: t('objectList.clearFilters')});
-            clearButton.onclick=()=>{
+        if (this.columnFilters.size) {
+            this.filterShortContainer.append(create('span', {text: t('objectList.filtersCount') + ': ' + this.columnFilters.size}));
+            const clearButton = create('button', {text: t('objectList.clearFilters')});
+            clearButton.onclick = () => {
                 this.columnFilters.clear();
                 this.refresh();
             }
             this.filterShortContainer.append(clearButton);
+        }
+        if (this.paramsInUrl) {
+            this.setUrl();
+        }
+    }
+
+    setUrl() {
+        const query = new URLSearchParams(document.location.search)
+        console.log('dddddcccc')
+        console.log(query)
+        let changed = false;
+        var visibleColumns = this.visibleColumns.map(x => x.dataName).join();
+        if (query.get('visibleColumns') || this.hiddenColumns.size) {
+            if (query.get('visibleColumns') != visibleColumns) {
+                query.set('visibleColumns', visibleColumns);
+                changed = true;
+            }
+        }
+        if (query.get('sort') || this.sort) {
+            if (query.get('sort') != this.sort) {
+                query.set('sort', this.sort);
+                changed = true;
+            }
+        }
+        if (query.get('columnFilters') || this.columnFilters) {
+            if (query.get('columnFilters') != JSON.stringify(Array.from(this.columnFilters.entries()))) {
+                query.set('columnFilters', JSON.stringify(Array.from(this.columnFilters.entries())));
+                changed = true;
+            }
+        }
+        if (changed) {
+            const url = new URL(document.location);
+            url.search = new URLSearchParams(query).toString();
+            history.pushState(null, '', url.toString());
+        }
+    }
+
+    readUrl() {
+
+        const query = new URLSearchParams(document.location.search)
+        if (query.get('visibleColumns')) {
+            this.hiddenColumns = new Set(this.columns.map(x => x.dataName));
+            for (const name of query.get('visibleColumns').split(',')) {
+                this.hiddenColumns.delete(name);
+            }
+        }
+        if (query.get('sort')) {
+            this.sort = query.get('sort');
+        }
+        if (query.get('columnFilters')) {
+            this.columnFilters = new Map(JSON.parse(query.get('columnFilters')));
         }
     }
 
@@ -217,6 +267,7 @@ export class ObjectsList extends HTMLElement {
             this.append(popup)
         }
     }
+
     gotoUrl(url) {
         window.location.href = url;
     }
