@@ -100,9 +100,15 @@ export class ObjectsList extends HTMLElement {
                 changed = true;
             }
         }
-        if (query.get('sort') || this.sort) {
-            if (query.get('sort') != this.sort) {
-                query.set('sort', this.sort);
+        if (query.get('sort') || this.sort?.col) {
+            if (query.get('sort') != this.sort?.col) {
+                query.set('sort', this.sort?.col);
+                changed = true;
+            }
+        }
+        if (query.get('sortDesc') == 'true' || this.sort?.desc) {
+            if ((query.get('sortDesc') == 'true') != this.sort?.desc) {
+                query.set('sortDesc', this.sort?.desc ? 'true' : 'false');
                 changed = true;
             }
         }
