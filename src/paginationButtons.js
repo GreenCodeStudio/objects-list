@@ -6,22 +6,36 @@ export class PaginationButtons extends HTMLElement {
         this.currentPage = 0;
         this.totalPages = 0;
         this.onpageclick = null;
+        this.buttonsBox = create('div', {className: 'buttonsBox'});
+        this.append(this.buttonsBox);
     }
 
     render() {
         let pagination = this.getPagination();
-        while(this.firstChild){
-            this.removeChild(this.firstChild)
+        while (this.buttonsBox.firstChild) {
+            this.buttonsBox.removeChild(this.buttonsBox.firstChild)
         }
+        const back = this.buttonsBox.append(create('button', {
+            text: '<<', disabled: this.currentPage == 0, onclick: () => {
+                if (this.currentPage > 0) {
+                    this.currentPage--;
+                    if (this.onpageclick) {
+                        this.onpageclick(this.currentPage);
+                    }
+                    this.render();
+                }
+                return false;
+            }
+        }));
         for (let pageNumber of pagination) {
             if (pageNumber == null) {
-                this.append(create('span', {text: '...'}));
+                this.buttonsBox.append(create('span', {text: '...'}));
             } else {
                 let pageButton = create('button', {
                     text: pageNumber + 1,
                     className: pageNumber == this.currentPage ? 'active' : ''
                 });
-                this.append(pageButton);
+                this.buttonsBox.append(pageButton);
                 pageButton.onclick = () => {
                     if (this.onpageclick) {
                         this.onpageclick(pageNumber);
@@ -31,6 +45,19 @@ export class PaginationButtons extends HTMLElement {
                 };
             }
         }
+        const forward = this.buttonsBox.append(create('button', {
+            text: '>>', disabled: this.currentPage == this.totalPages - 1, onclick: () => {
+                if (this.currentPage < this.totalPages - 1) {
+                    this.currentPage++;
+                    if (this.onpageclick) {
+                        this.onpageclick(this.currentPage);
+                    }
+                    this.render();
+                }
+                return false;
+            }
+        }));
+
     }
 
     getPagination() {
@@ -73,4 +100,10 @@ export class PaginationButtons extends HTMLElement {
     }
 }
 
-customElements.define('pagination-buttons', PaginationButtons);
+customElements
+    .define(
+        'pagination-buttons'
+        ,
+        PaginationButtons
+    )
+;

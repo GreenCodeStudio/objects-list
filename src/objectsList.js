@@ -29,6 +29,7 @@ export class ObjectsList extends HTMLElement {
         this.initFoot();
         this.addEventListener('contextmenu', e => this.showGlobalContextMenu(e));
         addEventListener('resize', e => this.resize());
+        this.addEventListener('keydown', e => this.onkeydown(e));
         this.infiniteScrollEnabled = false;
     }
 
@@ -276,6 +277,19 @@ export class ObjectsList extends HTMLElement {
 
     gotoUrl(url) {
         window.location.href = url;
+    }
+
+    onkeydown(e) {
+        if (e.ctrlKey) {
+            if (e.key == 'ArrowLeft' || e.key == 'ArrowRight') {
+                let page = Math.floor(this.start / this.limit);
+                page += (e.key == 'ArrowLeft' ? -1 : 1);
+                if (page < 0) page = 0;
+                else if (page>0 && page > Math.ceil(this.total / this.limit)-1) page = Math.ceil(this.total / this.limit)-1;
+                this.start = page * this.limit;
+                this.refresh();
+            }
+        }
     }
 }
 
