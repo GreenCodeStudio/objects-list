@@ -4,12 +4,14 @@ import '../src/style/objectsList.scss';
 console.log('aa');
 const dataSource={
     async get(options){
+        console.log('aaaaaa')
         return {
             rows:[
                 {id:1, name:'John'},
                 {id:2, name:'Doe'},
                 {id:3, name:'Smith'},
-            ]
+            ],
+            total:3000
         }
     }
 }
