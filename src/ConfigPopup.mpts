@@ -10,6 +10,7 @@
         <span>{{t('objectList.view')}}</span>
         <select class="view">
             <option value="tableView">{{t('objectList.tableView')}}</option>
+            <option value="tableWideView">{{t('objectList.tableWideView')}}</option>
             <option value="listView">{{t('objectList.listView')}}</option>
         </select>
     </label>

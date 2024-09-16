@@ -17,6 +17,10 @@
             <value lang="pl">Widok tabeli</value>
             <value lang="en">Table view</value>
         </node>
+        <node name="tableWideView">
+            <value lang="pl">Widok tabeli (szeroka)</value>
+            <value lang="en">Table view (wide)</value>
+        </node>
         <node name="listView">
             <value lang="pl">Widok listy</value>
             <value lang="en">List view</value>

@@ -4,11 +4,12 @@ import {AbstractView} from "./abstractView.js";
 import {t} from "./i18n.xml";
 
 export class TableView extends AbstractView {
-    constructor(objectsList) {
+    constructor(objectsList, params) {
         super();
         this.objectsList = objectsList;
         this.init();
         window.dbgTable = this;
+        this.params=params??{};
     }
 
     init() {
@@ -76,7 +77,7 @@ export class TableView extends AbstractView {
 
     fillRowContent(tr, data) {
         tr.lastData = data;
-        while(tr.firstChild){
+        while (tr.firstChild) {
             tr.removeChild(tr.firstChild)
         }
         tr.append(create('.td.icon', {className: this.objectsList.icon}));
@@ -174,10 +175,14 @@ export class TableView extends AbstractView {
         needed.push({base: actionWidth, grow: 0});
         let availableToGrow = this.clientWidth - needed.map(x => x.base).reduce((a, b) => a + b, 0);
         let sumGrow = needed.map(x => x.grow).reduce((a, b) => a + b, 0);
-        if (availableToGrow > 0 && sumGrow > 0) {
-            return needed.map(x => x.base + x.grow / sumGrow * availableToGrow);
+        if (this.params?.wide) {
+            return needed.map(x => x.base + x.grow * Math.max(100, availableToGrow / sumGrow));
         } else {
-            return needed.map(x => x.base);
+            if (availableToGrow > 0 && sumGrow > 0) {
+                return needed.map(x => x.base + x.grow / sumGrow * availableToGrow);
+            } else {
+                return needed.map(x => x.base);
+            }
         }
     }
 

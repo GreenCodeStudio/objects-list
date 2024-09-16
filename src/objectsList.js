@@ -52,8 +52,10 @@ export class ObjectsList extends HTMLElement {
 
         if (!this.insideView || !(this.insideView instanceof this.insideViewClass))
             this.initInsideView();
-        else if (this.insideView.refreshHeader)
+        else if (this.insideView.refreshHeader) {
+            this.insideView.params=this.insideViewParams
             this.insideView.refreshHeader()
+        }
 
         this.refreshLimit();
         const refreshSymbol = Symbol();
@@ -147,7 +149,7 @@ export class ObjectsList extends HTMLElement {
         if (this.insideView) {
             this.insideView.remove();
         }
-        this.insideView = new this.insideViewClass(this);
+        this.insideView = new this.insideViewClass(this, this.insideViewParams);
         this.insertBefore(this.insideView, this.foot);
         this.insideView.refresh = () => this.refresh();
         this.insideView.onPaginationChanged = (start, limit) => {

@@ -20,11 +20,29 @@ export class ConfigPopup extends HTMLElement {
             objectsList.infiniteScrollEnabled = this.querySelector('.mode').value == 'scrollMode'
             objectsList.refresh()
         }
-        this.querySelector('.view').onchange = () => {
-            if (this.querySelector('.view').value == 'tableView')
-                objectsList.insideViewClass = TableView
+        if(objectsList.infiniteScrollEnabled){
+            this.querySelector('.mode').value = 'scrollMode'
+        }
+        if (objectsList.insideViewClass == TableView) {
+            if (objectsList.insideViewParams?.wide)
+                this.querySelector('.view').value = 'tableWideView'
             else
+                this.querySelector('.view').value = 'tableView'
+        } else if (objectsList.insideViewClass == ListView) {
+            this.querySelector('.view').value = 'listView'
+        }
+
+        this.querySelector('.view').onchange = () => {
+            if (this.querySelector('.view').value == 'tableView') {
+                objectsList.insideViewClass = TableView
+                objectsList.insideViewParams = {wide: false}
+            } else if (this.querySelector('.view').value == 'tableWideView') {
+                objectsList.insideViewClass = TableView
+                objectsList.insideViewParams = {wide: true}
+            } else {
                 objectsList.insideViewClass = ListView
+                objectsList.insideViewParams = {}
+            }
             objectsList.refresh()
         }
         // this.addEventListener('blur', () => {
