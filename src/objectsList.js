@@ -121,10 +121,42 @@ export class ObjectsList extends HTMLElement {
                 changed = true;
             }
         }
+
+        if (query.get('insideView') || this.insideViewName) {
+            if(query.get('insideView') !=this.insideViewName){
+                query.set('insideView', this.insideViewName);
+                changed = true;
+            }
+        }
         if (changed) {
             const url = new URL(document.location);
             url.search = new URLSearchParams(query).toString();
             history.pushState(null, '', url.toString());
+        }
+    }
+    get insideViewName(){
+        debugger;
+        if(this.insideViewClass == TableView){
+            if(this.insideViewParams?.wide)
+                return 'tableWideView';
+            else
+                return 'tableView'
+        }else{
+            return 'listView'
+        }
+    }
+    set insideViewName(value){
+        debugger;
+        if(this.insideViewName == value)return;
+        if (value == 'tableView') {
+            this.insideViewClass = TableView
+            this.insideViewParams = {wide: false}
+        } else if (value == 'tableWideView') {
+            this.insideViewClass = TableView
+            this.insideViewParams = {wide: true}
+        } else {
+            this.insideViewClass = ListView
+            this.insideViewParams = {}
         }
     }
 
@@ -142,6 +174,9 @@ export class ObjectsList extends HTMLElement {
         }
         if (query.get('columnFilters')) {
             this.columnFilters = new Map(JSON.parse(query.get('columnFilters')));
+        }
+        if(query.get('insideView')){
+            this.insideViewName = query.get('insideView');
         }
     }
 

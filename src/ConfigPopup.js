@@ -33,16 +33,7 @@ export class ConfigPopup extends HTMLElement {
         }
 
         this.querySelector('.view').onchange = () => {
-            if (this.querySelector('.view').value == 'tableView') {
-                objectsList.insideViewClass = TableView
-                objectsList.insideViewParams = {wide: false}
-            } else if (this.querySelector('.view').value == 'tableWideView') {
-                objectsList.insideViewClass = TableView
-                objectsList.insideViewParams = {wide: true}
-            } else {
-                objectsList.insideViewClass = ListView
-                objectsList.insideViewParams = {}
-            }
+            objectsList.insideViewName=this.querySelector('.view').value
             objectsList.refresh()
         }
         // this.addEventListener('blur', () => {
