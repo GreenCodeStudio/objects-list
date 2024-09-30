@@ -28,7 +28,7 @@ export class AbstractView extends HTMLElement {
     }
 
     onScroll(e) {
-        if (this.onPaginationChanged) {
+        if (this.objectsList.infiniteScrollEnabled && this.onPaginationChanged) {
             let start = Math.round(this.scrollTop / this.rowHeight);
             let passedStart = Math.floor(start / 20) * 20 - 20;
             if (passedStart < 0)
