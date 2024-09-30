@@ -65,6 +65,10 @@
             <value lang="pl">Szukaj</value>
             <value lang="en">Search</value>
         </node>
+        <node name="inNewTab">
+            <value lang="pl">W nowej karcie</value>
+            <value lang="en">In new tab</value>
+        </node>
     </node>
     <node name="filter">
         <node name="none">

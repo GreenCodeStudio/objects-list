@@ -202,7 +202,14 @@ export class TableView extends AbstractView {
         }
         const rows = this.objectsList.getSelectedData();
         let actions = this.objectsList.generateActions(rows, 'contextMenu');
-        let elements = actions.map(action => ({
+        let actions2=[];
+        for (const action of actions) {
+            actions2.push(action);
+            if(action.href){
+                actions2.push({...action, href:null, command:()=>window.open(action.href), name:(action.name??'')+' ('+t('objectList.inNewTab')+')'});
+            }
+        }
+        let elements = actions2.map(action => ({
             text: action.name,
             icon: action.icon,
             class: action.action ? 'action-' + action.action : '',

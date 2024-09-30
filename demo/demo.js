@@ -21,6 +21,7 @@ objectList.columns=[
     {dataName:'id', title:'ID'},
     {dataName:'name', title:'Name'},
 ]
+objectList.generateActions=()=>[{title:'zz', href:'https://google.com'}]
 objectList.style.height='500px';
 document.body.appendChild(objectList);
 objectList.readUrl()
