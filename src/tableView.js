@@ -55,6 +55,9 @@ export class TableView extends AbstractView {
             this.initColumnMovability(node)
         }
         this.head.append(create('.column.actions'))
+
+
+        this.setColumnsWidths();
     }
 
     initColumnMovability(node) {
@@ -179,7 +182,7 @@ export class TableView extends AbstractView {
 
     setColumnsWidths() {
         const widths = this.calculateColumnsWidths();
-        for (let tr of this.body.children) {
+        for (let tr of this.body?.children??[]) {
             for (let i = 0; i < widths.length; i++) {
                 tr.children[i].style.width = widths[i] + 'px';
             }

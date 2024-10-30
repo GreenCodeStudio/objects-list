@@ -5,6 +5,7 @@ console.log('aa');
 const dataSource={
     async get(options){
         console.log('aaaaaa')
+        await new Promise(resolve=>setTimeout(resolve, 1000))
         return {
             rows:[
                 {id:1, name:'John'},

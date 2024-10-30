@@ -48,6 +48,7 @@ export class ObjectsList extends HTMLElement {
     }
 
     async refresh() {
+        console.log('refresh')
         this.classList.toggle('infiniteScrollEnabled', this.infiniteScrollEnabled);
 
         if (!this.insideView || !(this.insideView instanceof this.insideViewClass))
