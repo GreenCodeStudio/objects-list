@@ -9,7 +9,7 @@ export class TableView extends AbstractView {
         this.objectsList = objectsList;
         this.init();
         window.dbgTable = this;
-        this.params=params??{};
+        this.params = params ?? {};
     }
 
     init() {
@@ -29,9 +29,11 @@ export class TableView extends AbstractView {
     refreshHeader() {
         while (this.head.firstChild) this.head.firstChild.remove();
 
+        console.log('uuu')
         this.head.append(create('.column.icon'))
         for (let column of this.objectsList.visibleColumns) {
             let node = create('.column')
+            node.__column = column
             this.head.append(node);
             node.append(create('span.name', {text: column.name}));
             if (column.sortName) {
@@ -50,8 +52,44 @@ export class TableView extends AbstractView {
                     this.objectsList.refresh();
                 }
             }
+            this.initColumnMovability(node)
         }
         this.head.append(create('.column.actions'))
+    }
+
+    initColumnMovability(node) {
+        let startX = null;
+        let onmove = (e) => {
+            const movement = (e.pageX - startX);
+            node.style.setProperty('--move-x', movement + 'px');
+            if (movement < -node.previousElementSibling.clientWidth / 2) {
+                if (node.previousElementSibling.__column) {
+                    startX -= node.previousElementSibling.clientWidth;
+                    const prev=node.previousElementSibling;
+                    node.parentNode.insertBefore(node, prev);
+                    this.objectsList.reorderColumns(node.__column, prev?.__column)
+                }
+            } else if (movement > node.nextElementSibling.clientWidth / 2) {
+                if (node.nextElementSibling.__column) {
+                    startX += node.nextElementSibling.clientWidth;
+                    const next=node.nextElementSibling.nextElementSibling;
+                    node.parentNode.insertBefore(node, next);
+                    this.objectsList.reorderColumns(node.__column, next?.__column)
+                }
+            }
+        }
+        const onup = e => {
+            startX = null;
+            node.style.setProperty('--move-x', 0 + 'px');
+            removeEventListener('mousemove', onmove);
+            removeEventListener('mouseup', onup);
+            this.objectsList.refresh()
+        }
+        node.addEventListener('mousedown', (e) => {
+            startX = e.pageX;
+            addEventListener('mousemove', onmove)
+            addEventListener('mouseup', onup)
+        })
     }
 
     loadData(data, start, limit, infiniteScrollEnabled) {
@@ -202,11 +240,16 @@ export class TableView extends AbstractView {
         }
         const rows = this.objectsList.getSelectedData();
         let actions = this.objectsList.generateActions(rows, 'contextMenu');
-        let actions2=[];
+        let actions2 = [];
         for (const action of actions) {
             actions2.push(action);
-            if(action.href){
-                actions2.push({...action, href:null, command:()=>window.open(action.href), name:(action.name??'')+' ('+t('objectList.inNewTab')+')'});
+            if (action.href) {
+                actions2.push({
+                    ...action,
+                    href: null,
+                    command: () => window.open(action.href),
+                    name: (action.name ?? '') + ' (' + t('objectList.inNewTab') + ')'
+                });
             }
         }
         let elements = actions2.map(action => ({

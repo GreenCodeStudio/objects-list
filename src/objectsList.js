@@ -53,7 +53,7 @@ export class ObjectsList extends HTMLElement {
         if (!this.insideView || !(this.insideView instanceof this.insideViewClass))
             this.initInsideView();
         else if (this.insideView.refreshHeader) {
-            this.insideView.params=this.insideViewParams
+            this.insideView.params = this.insideViewParams
             this.insideView.refreshHeader()
         }
 
@@ -123,7 +123,7 @@ export class ObjectsList extends HTMLElement {
         }
 
         if (query.get('insideView') || this.insideViewName) {
-            if(query.get('insideView') !=this.insideViewName){
+            if (query.get('insideView') != this.insideViewName) {
                 query.set('insideView', this.insideViewName);
                 changed = true;
             }
@@ -134,20 +134,20 @@ export class ObjectsList extends HTMLElement {
             history.pushState(null, '', url.toString());
         }
     }
-    get insideViewName(){
-        debugger;
-        if(this.insideViewClass == TableView){
-            if(this.insideViewParams?.wide)
+
+    get insideViewName() {
+        if (this.insideViewClass == TableView) {
+            if (this.insideViewParams?.wide)
                 return 'tableWideView';
             else
                 return 'tableView'
-        }else{
+        } else {
             return 'listView'
         }
     }
-    set insideViewName(value){
-        debugger;
-        if(this.insideViewName == value)return;
+
+    set insideViewName(value) {
+        if (this.insideViewName == value) return;
         if (value == 'tableView') {
             this.insideViewClass = TableView
             this.insideViewParams = {wide: false}
@@ -175,7 +175,7 @@ export class ObjectsList extends HTMLElement {
         if (query.get('columnFilters')) {
             this.columnFilters = new Map(JSON.parse(query.get('columnFilters')));
         }
-        if(query.get('insideView')){
+        if (query.get('insideView')) {
             this.insideViewName = query.get('insideView');
         }
     }
@@ -322,10 +322,23 @@ export class ObjectsList extends HTMLElement {
                 let page = Math.floor(this.start / this.limit);
                 page += (e.key == 'ArrowLeft' ? -1 : 1);
                 if (page < 0) page = 0;
-                else if (page>0 && page > Math.ceil(this.total / this.limit)-1) page = Math.ceil(this.total / this.limit)-1;
+                else if (page > 0 && page > Math.ceil(this.total / this.limit) - 1) page = Math.ceil(this.total / this.limit) - 1;
                 this.start = page * this.limit;
                 this.refresh();
             }
+        }
+    }
+
+
+    reorderColumns(column, next) {
+        console.log('reorderColumns')
+        this.columns.splice(this.columns.indexOf(column), 1);
+        if (next)
+            this.columns.splice(this.columns.indexOf(next), 0, column);
+        else
+            this.columns.push(column)
+        if (this.insideView.setColumnsWidths) {
+            this.insideView.setColumnsWidths()
         }
     }
 }
