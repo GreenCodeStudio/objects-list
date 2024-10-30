@@ -12,6 +12,8 @@ export class ObjectsList extends HTMLElement {
     constructor(datasource) {
         super();
         this.columns = [];
+        this.columnsReordered = [];
+        this.columnsReorderedChanged = false;
         this.hiddenColumns = new Set()
         this.columnFilters = new Map();
         this.generateActions = () => [];
@@ -33,8 +35,18 @@ export class ObjectsList extends HTMLElement {
         this.infiniteScrollEnabled = false;
     }
 
+    get columns() {
+        return this._columns;
+    }
+
+    set columns(value) {
+        this._columns = value;
+        this.columnsReordered = value;
+        this.columnsReorderedChanged = false;
+    }
+
     get visibleColumns() {
-        return this.columns.filter(x => !this.hiddenColumns.has(x.dataName))
+        return this.columnsReordered.filter(x => !this.hiddenColumns.has(x.dataName))
     }
 
     refreshLimit() {
@@ -98,7 +110,7 @@ export class ObjectsList extends HTMLElement {
         console.log(query)
         let changed = false;
         var visibleColumns = this.visibleColumns.map(x => x.dataName).join();
-        if (query.get('visibleColumns') || this.hiddenColumns.size) {
+        if (query.get('visibleColumns') || this.hiddenColumns.size || this.columnsReorderedChanged) {
             if (query.get('visibleColumns') != visibleColumns) {
                 query.set('visibleColumns', visibleColumns);
                 changed = true;
@@ -165,9 +177,20 @@ export class ObjectsList extends HTMLElement {
 
         const query = new URLSearchParams(document.location.search)
         if (query.get('visibleColumns')) {
+            const splitted = query.get('visibleColumns').split(',');
             this.hiddenColumns = new Set(this.columns.map(x => x.dataName));
-            for (const name of query.get('visibleColumns').split(',')) {
+            for (const name of splitted) {
                 this.hiddenColumns.delete(name);
+            }
+            for (let i = splitted.length-1; i >0; i--) {
+                const column = this.columnsReordered.find(x => x.dataName == splitted[i - 1]);
+                const next = this.columnsReordered.find(x => x.dataName == splitted[i]);
+                this.columnsReordered.splice(this.columnsReordered.indexOf(column), 1);
+                if (next)
+                    this.columnsReordered.splice(this.columnsReordered.indexOf(next), 0, column);
+                else
+                    this.columnsReordered.push(column)
+                this.columnsReorderedChanged = true;
             }
         }
         if (query.get('sort')) {
@@ -333,11 +356,13 @@ export class ObjectsList extends HTMLElement {
 
     reorderColumns(column, next) {
         console.log('reorderColumns')
-        this.columns.splice(this.columns.indexOf(column), 1);
+        this.columnsReordered.splice(this.columnsReordered.indexOf(column), 1);
         if (next)
-            this.columns.splice(this.columns.indexOf(next), 0, column);
+            this.columnsReordered.splice(this.columnsReordered.indexOf(next), 0, column);
         else
-            this.columns.push(column)
+            this.columnsReordered.push(column)
+
+        this.columnsReorderedChanged = true;
         if (this.insideView.setColumnsWidths) {
             this.insideView.setColumnsWidths()
         }
