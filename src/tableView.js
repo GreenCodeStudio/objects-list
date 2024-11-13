@@ -68,20 +68,25 @@ export class TableView extends AbstractView {
             if (movement < -node.previousElementSibling.clientWidth / 2) {
                 if (node.previousElementSibling.__column) {
                     startX -= node.previousElementSibling.clientWidth;
-                    const prev=node.previousElementSibling;
+                    const prev = node.previousElementSibling;
                     node.parentNode.insertBefore(node, prev);
                     this.objectsList.reorderColumns(node.__column, prev?.__column)
                 }
             } else if (movement > node.nextElementSibling.clientWidth / 2) {
                 if (node.nextElementSibling.__column) {
                     startX += node.nextElementSibling.clientWidth;
-                    const next=node.nextElementSibling.nextElementSibling;
+                    const next = node.nextElementSibling.nextElementSibling;
                     node.parentNode.insertBefore(node, next);
                     this.objectsList.reorderColumns(node.__column, next?.__column)
                 }
             }
         }
         const onup = e => {
+            const movement = (e.pageX - startX);
+            if (Math.abs(movement) < 10) {
+                if (node.onclick)
+                    node.onclick();
+            }
             startX = null;
             node.style.setProperty('--move-x', 0 + 'px');
             removeEventListener('mousemove', onmove);
@@ -182,9 +187,11 @@ export class TableView extends AbstractView {
 
     setColumnsWidths() {
         const widths = this.calculateColumnsWidths();
-        for (let tr of this.body?.children??[]) {
+        for (let tr of this.body?.children ?? []) {
             for (let i = 0; i < widths.length; i++) {
-                tr.children[i].style.width = widths[i] + 'px';
+                if(tr.children[i]) {
+                    tr.children[i].style.width = widths[i] + 'px';
+                }
             }
         }
         let sum = 0;

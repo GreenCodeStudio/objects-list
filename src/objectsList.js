@@ -182,15 +182,17 @@ export class ObjectsList extends HTMLElement {
             for (const name of splitted) {
                 this.hiddenColumns.delete(name);
             }
-            for (let i = splitted.length-1; i >0; i--) {
+            for (let i = splitted.length - 1; i > 0; i--) {
                 const column = this.columnsReordered.find(x => x.dataName == splitted[i - 1]);
                 const next = this.columnsReordered.find(x => x.dataName == splitted[i]);
-                this.columnsReordered.splice(this.columnsReordered.indexOf(column), 1);
-                if (next)
-                    this.columnsReordered.splice(this.columnsReordered.indexOf(next), 0, column);
-                else
-                    this.columnsReordered.push(column)
-                this.columnsReorderedChanged = true;
+                if (column) {
+                    this.columnsReordered.splice(this.columnsReordered.indexOf(column), 1);
+                    if (next)
+                        this.columnsReordered.splice(this.columnsReordered.indexOf(next), 0, column);
+                    else
+                        this.columnsReordered.push(column)
+                    this.columnsReorderedChanged = true;
+                }
             }
         }
         if (query.get('sort')) {
@@ -356,15 +358,17 @@ export class ObjectsList extends HTMLElement {
 
     reorderColumns(column, next) {
         console.log('reorderColumns')
-        this.columnsReordered.splice(this.columnsReordered.indexOf(column), 1);
-        if (next)
-            this.columnsReordered.splice(this.columnsReordered.indexOf(next), 0, column);
-        else
-            this.columnsReordered.push(column)
+        if(column) {
+            this.columnsReordered.splice(this.columnsReordered.indexOf(column), 1);
+            if (next)
+                this.columnsReordered.splice(this.columnsReordered.indexOf(next), 0, column);
+            else
+                this.columnsReordered.push(column)
 
-        this.columnsReorderedChanged = true;
-        if (this.insideView.setColumnsWidths) {
-            this.insideView.setColumnsWidths()
+            this.columnsReorderedChanged = true;
+            if (this.insideView.setColumnsWidths) {
+                this.insideView.setColumnsWidths()
+            }
         }
     }
 }

@@ -19,7 +19,7 @@ const dataSource={
 const objectList=new ObjectsList(dataSource)
 objectList.paramsInUrl=true;
 objectList.columns=[
-    {dataName:'id', name:'ID'},
+    {dataName:'id', name:'ID', sortName:'id'},
     {dataName:'name', name:'Name'},
     {dataName:'a',name:'a', content:()=>{return 'aaa'}},
     {dataName:'b',name:'b', content:()=>{return 'bbb'}},
