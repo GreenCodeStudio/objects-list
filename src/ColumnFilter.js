@@ -8,6 +8,7 @@ export class ColumnFilter extends HTMLElement {
         this.appendChild(this.select)
         this.select.append(create('option', {value: 'none', text: t('filter.none')}))
         this.select.append(create('option', {value: 'equals', text: t('filter.equals')}))
+        this.select.append(create('option', {value: 'notEquals', text: t('filter.notEquals')}))
         this.select.append(create('option', {value: 'less', text: t('filter.lessThan')}))
         this.select.append(create('option', {value: 'more', text: t('filter.greaterThan')}))
         this.select.append(create('option', {value: 'contains', text: t('filter.contains')}))
