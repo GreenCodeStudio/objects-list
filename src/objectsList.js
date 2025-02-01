@@ -20,6 +20,7 @@ export class ObjectsList extends HTMLElement {
         this.insideViewClass = TableView;
         this.icon = 'icon-document';
         this.loadConcurencyLimiter = new ConcurencyLimiter();
+        this.loadConcurencyLimiterTotal = new ConcurencyLimiter();
         this.datasource = datasource;
         this.datasource.onchange = () => this.refresh();
         this.start = 0;
@@ -73,20 +74,12 @@ export class ObjectsList extends HTMLElement {
         this.refreshLimit();
         const refreshSymbol = Symbol();
         this.lastRefreshSymbol = refreshSymbol;
-        await this.loadConcurencyLimiter.run(async () => {
-            if (this.lastRefreshSymbol != refreshSymbol) return;
-
-            if (this.asyncTotal) {
+        this.lastRefreshSymbolTotal = refreshSymbol;
+        if (this.asyncTotal) {
+            const promise1 = this.loadConcurencyLimiter.run(async () => {
+                if (this.lastRefreshSymbol != refreshSymbol) return;
 
                 let dataRows = this.datasource.getRows(this);
-                let dataTotal = this.datasource.getTotal(this);
-
-                dataTotal.then(x => {
-                    if (this.lastRefreshSymbol != refreshSymbol) return;
-                    this.total = x.total;
-                    this.pagination.totalPages = Math.ceil(this.total / this.limit);
-                    this.pagination.render();
-                })
 
                 if (this.lastRefreshSymbol != refreshSymbol) return;
                 const data = await dataRows;
@@ -95,7 +88,23 @@ export class ObjectsList extends HTMLElement {
                 this.insideView.loadData(data, this.start, this.limit, this.infiniteScrollEnabled);
                 this.pagination.currentPage = Math.floor(this.start / this.limit);
                 this.pagination.render();
-            } else {
+            });
+
+            const promise2 = this.loadConcurencyLimiter.run(async () => {
+                if (this.lastRefreshSymbolTotal != refreshSymbol) return;
+                let dataTotal = this.datasource.getTotal(this);
+                const x = await dataTotal
+                if (this.lastRefreshSymbolTotal != refreshSymbol) return;
+                this.total = x.total;
+                this.pagination.totalPages = Math.ceil(this.total / this.limit);
+                this.pagination.render();
+            });
+
+            await promise1;
+            await promise2;
+        } else {
+            await this.loadConcurencyLimiter.run(async () => {
+                if (this.lastRefreshSymbol != refreshSymbol) return;
 
                 let data = await this.datasource.get(this);
                 if (this.lastRefreshSymbol != refreshSymbol) return;
@@ -107,8 +116,10 @@ export class ObjectsList extends HTMLElement {
                 this.pagination.currentPage = Math.floor(this.start / this.limit);
                 this.pagination.totalPages = Math.ceil(this.total / this.limit);
                 this.pagination.render();
-            }
-        });
+            });
+        }
+
+
         while (this.filterShortContainer.firstChild) {
             this.filterShortContainer.firstChild.remove()
         }
