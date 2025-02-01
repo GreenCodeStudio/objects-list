@@ -76,16 +76,38 @@ export class ObjectsList extends HTMLElement {
         await this.loadConcurencyLimiter.run(async () => {
             if (this.lastRefreshSymbol != refreshSymbol) return;
 
-            let data = await this.datasource.get(this);
-            if (this.lastRefreshSymbol != refreshSymbol) return;
+            if (this.asyncTotal) {
 
-            this.currentRows = data.rows;
-            this.fillDataById(data.rows);
-            this.total = data.total;
-            this.insideView.loadData(data, this.start, this.limit, this.infiniteScrollEnabled);
-            this.pagination.currentPage = Math.floor(this.start / this.limit);
-            this.pagination.totalPages = Math.ceil(this.total / this.limit);
-            this.pagination.render();
+                let dataRows = this.datasource.getRows(this);
+                let dataTotal = this.datasource.getTotal(this);
+
+                dataTotal.then(x => {
+                    if (this.lastRefreshSymbol != refreshSymbol) return;
+                    this.total = x.total;
+                    this.pagination.totalPages = Math.ceil(this.total / this.limit);
+                    this.pagination.render();
+                })
+
+                if (this.lastRefreshSymbol != refreshSymbol) return;
+                const data = await dataRows;
+                this.currentRows = dataRows.rows;
+                this.fillDataById(data.rows);
+                this.insideView.loadData(data, this.start, this.limit, this.infiniteScrollEnabled);
+                this.pagination.currentPage = Math.floor(this.start / this.limit);
+                this.pagination.render();
+            } else {
+
+                let data = await this.datasource.get(this);
+                if (this.lastRefreshSymbol != refreshSymbol) return;
+
+                this.currentRows = data.rows;
+                this.fillDataById(data.rows);
+                this.total = data.total;
+                this.insideView.loadData(data, this.start, this.limit, this.infiniteScrollEnabled);
+                this.pagination.currentPage = Math.floor(this.start / this.limit);
+                this.pagination.totalPages = Math.ceil(this.total / this.limit);
+                this.pagination.render();
+            }
         });
         while (this.filterShortContainer.firstChild) {
             this.filterShortContainer.firstChild.remove()
@@ -358,7 +380,7 @@ export class ObjectsList extends HTMLElement {
 
     reorderColumns(column, next) {
         console.log('reorderColumns')
-        if(column) {
+        if (column) {
             this.columnsReordered.splice(this.columnsReordered.indexOf(column), 1);
             if (next)
                 this.columnsReordered.splice(this.columnsReordered.indexOf(next), 0, column);

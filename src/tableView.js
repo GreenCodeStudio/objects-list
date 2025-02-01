@@ -62,6 +62,7 @@ export class TableView extends AbstractView {
 
     initColumnMovability(node) {
         let startX = null;
+        let changed = false;
         let onmove = (e) => {
             const movement = (e.pageX - startX);
             node.style.setProperty('--move-x', movement + 'px');
@@ -71,6 +72,7 @@ export class TableView extends AbstractView {
                     const prev = node.previousElementSibling;
                     node.parentNode.insertBefore(node, prev);
                     this.objectsList.reorderColumns(node.__column, prev?.__column)
+                    changed = true;
                 }
             } else if (movement > node.nextElementSibling.clientWidth / 2) {
                 if (node.nextElementSibling.__column) {
@@ -78,12 +80,13 @@ export class TableView extends AbstractView {
                     const next = node.nextElementSibling.nextElementSibling;
                     node.parentNode.insertBefore(node, next);
                     this.objectsList.reorderColumns(node.__column, next?.__column)
+                    changed = true;
                 }
             }
         }
         const onup = e => {
             const movement = (e.pageX - startX);
-            if (Math.abs(movement) < 10) {
+            if (Math.abs(movement) < 10 && !changed) {
                 if (node.onclick)
                     node.onclick();
             }
@@ -91,7 +94,9 @@ export class TableView extends AbstractView {
             node.style.setProperty('--move-x', 0 + 'px');
             removeEventListener('mousemove', onmove);
             removeEventListener('mouseup', onup);
-            this.objectsList.refresh()
+            if(changed) {
+                this.objectsList.refresh()
+            }
         }
         node.addEventListener('mousedown', (e) => {
             startX = e.pageX;
