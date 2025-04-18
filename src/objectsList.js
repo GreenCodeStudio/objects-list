@@ -79,11 +79,10 @@ export class ObjectsList extends HTMLElement {
             const promise1 = this.loadConcurencyLimiter.run(async () => {
                 if (this.lastRefreshSymbol != refreshSymbol) return;
 
-                let dataRows = this.datasource.getRows(this);
+                const data = await this.datasource.getRows(this);
 
                 if (this.lastRefreshSymbol != refreshSymbol) return;
-                const data = await dataRows;
-                this.currentRows = dataRows.rows;
+                this.currentRows = data.rows;
                 this.fillDataById(data.rows);
                 this.insideView.loadData(data, this.start, this.limit, this.infiniteScrollEnabled);
                 this.pagination.currentPage = Math.floor(this.start / this.limit);
