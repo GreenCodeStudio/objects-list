@@ -46,4 +46,7 @@
         </table>
         </div>
     </:foreach>
+    <p class="endInformation">
+
+    </p>
 </form>

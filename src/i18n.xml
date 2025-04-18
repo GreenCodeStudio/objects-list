@@ -69,6 +69,10 @@
             <value lang="pl">W nowej karcie</value>
             <value lang="en">In new tab</value>
         </node>
+        <node name="visibilityLimitReached">
+            <value lang="pl">Reszta pól została ukryta. Wszystkich pól: </value>
+            <value lang="en">The rest of the fields have been hidden. All fields: </value>
+        </node>
     </node>
     <node name="filter">
         <node name="none">

@@ -20,7 +20,7 @@ export class ConfigPopup extends HTMLElement {
             objectsList.infiniteScrollEnabled = this.querySelector('.mode').value == 'scrollMode'
             objectsList.refresh()
         }
-        if(objectsList.infiniteScrollEnabled){
+        if (objectsList.infiniteScrollEnabled) {
             this.querySelector('.mode').value = 'scrollMode'
         }
         if (objectsList.insideViewClass == TableView) {
@@ -33,7 +33,7 @@ export class ConfigPopup extends HTMLElement {
         }
 
         this.querySelector('.view').onchange = () => {
-            objectsList.insideViewName=this.querySelector('.view').value
+            objectsList.insideViewName = this.querySelector('.view').value
             objectsList.refresh()
         }
         // this.addEventListener('blur', () => {
@@ -81,18 +81,32 @@ export class ConfigPopup extends HTMLElement {
         this.tabIndex = 0
         setTimeout(() => this.focus(), 1)
         setTimeout(() => this.checkFocus(), 100)
+        this.refreshSearch('')
     }
 
     refreshSearch(value) {
+        let countedVisible = 0;
+        const visibilityLimit = 100;
         for (const table of this.querySelectorAll('.categoryTableContainer')) {
             let anyVisible = false;
             for (const row of table.querySelectorAll('tbody tr')) {
-                const visible = row.children[1].textContent.toLowerCase().includes(value.toLowerCase())
+                const shouldBeVisible = row.children[1].textContent.toLowerCase().includes(value.toLowerCase());
+                const visible = shouldBeVisible && countedVisible < visibilityLimit;
                 row.style.display = visible ? '' : 'none'
-                if (visible)
+                if (visible) {
                     anyVisible = true;
+                }
+
+                countedVisible += shouldBeVisible;
             }
             table.style.display = anyVisible ? '' : 'none'
+        }
+        const endInformation = this.querySelector('.endInformation');
+        if (countedVisible > visibilityLimit) {
+            endInformation.style.display = '';
+            endInformation.textContent = t('objectList.visibilityLimitReached') + ' ' + countedVisible
+        } else {
+            endInformation.style.display = 'none';
         }
     }
 
