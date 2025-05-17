@@ -35,6 +35,11 @@
                         <input type="checkbox" data-name=column.dataName />
                     </td>
                     <td>
+                        <:if condition=column.sortName >
+                            <button class="sortBtn" data-name=column.dataName type="button">{{t('objectList.sort')}}</button>
+                        </:if>
+                    </td>
+                    <td>
                         {{column.name}}
                     </td>
                     <:if condition=column.isFilter >

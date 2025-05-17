@@ -54,6 +54,15 @@ export class ConfigPopup extends HTMLElement {
                 objectsList.refresh()
             }
         }
+        for (const sortBtn of this.querySelectorAll('.sortBtn')){
+            sortBtn.onclick = () => {
+                const column = objectsList.columns.find(x => x.dataName == sortBtn.dataset.name)
+                if (column) {
+                    column.sort = column.sort == 'asc' ? 'desc' : 'asc'
+                    objectsList.refresh()
+                }
+            }
+        }
 
         for (const filterContainer of this.querySelectorAll('table .filter')) {
             console.log('aa')

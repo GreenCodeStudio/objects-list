@@ -73,6 +73,10 @@
             <value lang="pl">Reszta pól została ukryta. Wszystkich pól: </value>
             <value lang="en">The rest of the fields have been hidden. All fields: </value>
         </node>
+        <node name="sort">
+            <value lang="pl">Sortuj</value>
+            <value lang="en">Sort</value>
+        </node>
     </node>
     <node name="filter">
         <node name="none">
