@@ -56,6 +56,7 @@ export class ConfigPopup extends HTMLElement {
         }
 
         for (const filterContainer of this.querySelectorAll('table .filter')) {
+            console.log('aa')
             const filter = new ColumnFilter();
             filterContainer.append(filter)
             filter.addEventListener('x-filter', (e) => {

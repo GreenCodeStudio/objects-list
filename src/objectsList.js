@@ -31,9 +31,24 @@ export class ObjectsList extends HTMLElement {
         this.dataById = new Map();
         this.initFoot();
         this.addEventListener('contextmenu', e => this.showGlobalContextMenu(e));
-        addEventListener('resize', e => this.resize());
+        this.resizeBinded = this.resize.bind(this);
+        this.popstateBinded = this.readUrl.bind(this);
+        this.readUrl()
         this.addEventListener('keydown', e => this.onkeydown(e));
         this.infiniteScrollEnabled = false;
+    }
+
+    connectedCallback() {
+        addEventListener('resize', this.resizeBinded);
+        addEventListener("popstate", this.popstateBinded)
+        if (this.paramsInLocalStorage) {
+            this.applyParams(JSON.parse(localStorage['objectList_params_'+this.paramsInLocalStorage]));
+        }
+    }
+
+    disconnectedCallback() {
+        removeEventListener('resize', this.resizeBinded);
+        removeEventListener("popstate", this.popstateBinded)
     }
 
     get columns() {
@@ -134,50 +149,59 @@ export class ObjectsList extends HTMLElement {
         if (this.paramsInUrl) {
             this.setUrl();
         }
+        if (this.paramsInLocalStorage) {
+            this.setLocalStorage();
+        }
     }
 
     setUrl() {
         const query = new URLSearchParams(document.location.search)
+        const prev = Object.fromEntries([...query]);
+        const next = new URLSearchParams(this.serializeParams(prev))
         console.log('dddddcccc')
         console.log(query)
-        let changed = false;
-        var visibleColumns = this.visibleColumns.map(x => x.dataName).join();
-        if (query.get('visibleColumns') || this.hiddenColumns.size || this.columnsReorderedChanged) {
-            if (query.get('visibleColumns') != visibleColumns) {
-                query.set('visibleColumns', visibleColumns);
-                changed = true;
-            }
-        }
-        if (query.get('sort') || this.sort?.col) {
-            if (query.get('sort') != this.sort?.col) {
-                query.set('sort', this.sort?.col);
-                changed = true;
-            }
-        }
-        if (query.get('sortDesc') == 'true' || this.sort?.desc) {
-            if ((query.get('sortDesc') == 'true') != this.sort?.desc) {
-                query.set('sortDesc', this.sort?.desc ? 'true' : 'false');
-                changed = true;
-            }
-        }
-        if (query.get('columnFilters') || this.columnFilters) {
-            if (query.get('columnFilters') != JSON.stringify(Array.from(this.columnFilters.entries()))) {
-                query.set('columnFilters', JSON.stringify(Array.from(this.columnFilters.entries())));
-                changed = true;
-            }
-        }
-
-        if (query.get('insideView') || this.insideViewName) {
-            if (query.get('insideView') != this.insideViewName) {
-                query.set('insideView', this.insideViewName);
-                changed = true;
-            }
-        }
-        if (changed) {
+        if (prev.toString() !== next.toString()) {
             const url = new URL(document.location);
-            url.search = new URLSearchParams(query).toString();
+            url.search = next.toString();
             history.pushState(null, '', url.toString());
         }
+    }
+    setLocalStorage() {
+        const prev = JSON.parse(localStorage.getItem('objectList_params_'+this.paramsInLocalStorage));
+        const next = this.serializeParams(prev);
+        if (JSON.stringify(prev) !== JSON.stringify(next)) {
+            localStorage.setItem('objectList_params_'+this.paramsInLocalStorage, JSON.stringify(next));
+        }
+    }
+
+    serializeParams(old = {}) {
+        old=old||{};
+        let ret = {};
+        let changed = false;
+        var visibleColumns = this.visibleColumns.map(x => x.dataName).join();
+        if (old.visibleColumns || this.hiddenColumns.size || this.columnsReorderedChanged) {
+            ret.visibleColumns = visibleColumns;
+            changed = true;
+
+        }
+        if (old.sort || this.sort?.col) {
+            ret.sort = this.sort?.col;
+
+        }
+        if (old.sortDesc == 'true' || this.sort?.desc) {
+            ret.sortDesc = this.sort?.desc ? 'true' : 'false';
+
+
+        }
+        if (old.columnFilters || this.columnFilters) {
+            ret.columnFilters = JSON.stringify(Array.from(this.columnFilters.entries()));
+
+        }
+
+        if (old.insideView || this.insideViewName) {
+            ret.insideView = this.insideViewName;
+        }
+        return ret;
     }
 
     get insideViewName() {
@@ -208,8 +232,13 @@ export class ObjectsList extends HTMLElement {
     readUrl() {
 
         const query = new URLSearchParams(document.location.search)
-        if (query.get('visibleColumns')) {
-            const splitted = query.get('visibleColumns').split(',');
+        const params = Object.fromEntries([...query]);
+        this.applyParams(params)
+    }
+
+    applyParams(params) {
+        if (params.visibleColumns) {
+            const splitted = params.visibleColumns.split(',');
             this.hiddenColumns = new Set(this.columns.map(x => x.dataName));
             for (const name of splitted) {
                 this.hiddenColumns.delete(name);
@@ -227,14 +256,14 @@ export class ObjectsList extends HTMLElement {
                 }
             }
         }
-        if (query.get('sort')) {
-            this.sort = query.get('sort');
+        if (params.sort) {
+            this.sort = params.sort;
         }
-        if (query.get('columnFilters')) {
-            this.columnFilters = new Map(JSON.parse(query.get('columnFilters')));
+        if (params.columnFilters) {
+            this.columnFilters = new Map(JSON.parse(params.columnFilters));
         }
-        if (query.get('insideView')) {
-            this.insideViewName = query.get('insideView');
+        if (params.insideView) {
+            this.insideViewName = params.insideView;
         }
     }
 

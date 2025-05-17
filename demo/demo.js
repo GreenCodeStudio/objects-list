@@ -17,12 +17,13 @@ const dataSource={
     }
 }
 const objectList=new ObjectsList(dataSource)
-objectList.paramsInUrl=true;
+objectList.paramsInUrl=false;
+objectList.paramsInLocalStorage=document.location;
 objectList.columns=[
     {dataName:'id', name:'ID', sortName:'id'},
     {dataName:'name', name:'Name'},
     {dataName:'a',name:'a', content:()=>{return 'aaa'}},
-    {dataName:'b',name:'b', content:()=>{return 'bbb'}},
+    {dataName:'b',name:'b', content:()=>{return 'bbb'}, isFilter:true},
     {dataName:'c',name:'c', content:()=>{return 'ccc'}},
 ]
 objectList.generateActions=()=>[{title:'zz', href:'https://google.com'}]

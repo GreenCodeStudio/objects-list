@@ -69,7 +69,6 @@ data-view {
 
                 }
 
-
             }
         }
 
@@ -222,5 +221,10 @@ data-view {
 pagination-buttons {
     button.active {
         background: var(--main);
+    }
+}
+.categoryTableContainer{
+    &:not(:has(.filter)) .filterHeader{
+        display: none;
     }
 }
