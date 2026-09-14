@@ -54,13 +54,17 @@ export class ConfigPopup extends HTMLElement {
                 objectsList.refresh()
             }
         }
-        for (const sortBtn of this.querySelectorAll('.sortBtn')){
+        for (const sortBtn of this.querySelectorAll('.sortBtn')) {
             sortBtn.onclick = () => {
-                const column = objectsList.columns.find(x => x.dataName == sortBtn.dataset.name)
-                if (column) {
-                    column.sort = column.sort == 'asc' ? 'desc' : 'asc'
-                    objectsList.refresh()
+                if (objectsList.sort && objectsList.sort.col === sortBtn.dataset.name) {
+                    objectsList.sort.desc = !objectsList.sort.desc;
+                } else {
+                    objectsList.sort = {col: sortBtn.dataset.name, desc: false};
                 }
+                if (!objectsList.infiniteScrollEnabled) {
+                    objectsList.start = 0;
+                }
+                objectsList.refresh();
             }
         }
 

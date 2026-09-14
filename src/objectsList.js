@@ -62,7 +62,7 @@ export class ObjectsList extends HTMLElement {
     }
 
     get visibleColumns() {
-        return this.columnsReordered.filter(x => !this.hiddenColumns.has(x.dataName))
+        return this.columnsReordered.filter(x => !this.hiddenColumns.has(x.dataName??x.sortName))
     }
 
     refreshLimit() {
@@ -179,7 +179,7 @@ export class ObjectsList extends HTMLElement {
         old = old || {};
         let ret = {};
         let changed = false;
-        var visibleColumns = this.visibleColumns.map(x => x.dataName).join();
+        var visibleColumns = this.visibleColumns.map(x => x.dataName??x.sortName).join();
         if (old.visibleColumns || this.hiddenColumns.size || this.columnsReorderedChanged) {
             ret.visibleColumns = visibleColumns;
             changed = true;
@@ -240,13 +240,13 @@ export class ObjectsList extends HTMLElement {
     applyParams(params) {
         if (params?.visibleColumns) {
             const splitted = params.visibleColumns.split(',');
-            this.hiddenColumns = new Set(this.columns.map(x => x.dataName));
+            this.hiddenColumns = new Set(this.columns.map(x => x.dataName??x.sortName));
             for (const name of splitted) {
                 this.hiddenColumns.delete(name);
             }
             for (let i = splitted.length - 1; i > 0; i--) {
-                const column = this.columnsReordered.find(x => x.dataName == splitted[i - 1]);
-                const next = this.columnsReordered.find(x => x.dataName == splitted[i]);
+                const column = this.columnsReordered.find(x => (x.dataName??x.sortName) == splitted[i - 1]);
+                const next = this.columnsReordered.find(x => (x.dataName??x.sortName) == splitted[i]);
                 if (column) {
                     this.columnsReordered.splice(this.columnsReordered.indexOf(column), 1);
                     if (next)
