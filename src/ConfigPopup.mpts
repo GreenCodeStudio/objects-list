@@ -23,6 +23,7 @@
             <thead>
             <tr>
                 <th>{{t('objectList.columnEnabled')}}</th>
+                <th>{{t('objectList.sort')}}</th>
                 <th>{{t('objectList.columnName')}}</th>
                 <th class="filterHeader">{{t('objectList.columnFilter')}}</th>
             </tr>
@@ -36,7 +37,7 @@
                     </td>
                     <td>
                         <:if condition=column.sortName >
-                            <button class="sortBtn" data-name=column.dataName type="button">{{t('objectList.sort')}}</button>
+                            <button class="sortBtn" data-name=column.sortName type="button">{{t('objectList.sort')}}</button>
                         </:if>
                     </td>
                     <td>

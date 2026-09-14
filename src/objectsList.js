@@ -42,7 +42,7 @@ export class ObjectsList extends HTMLElement {
         addEventListener('resize', this.resizeBinded);
         addEventListener("popstate", this.popstateBinded)
         if (this.paramsInLocalStorage) {
-            this.applyParams(JSON.parse(localStorage['objectList_params_'+this.paramsInLocalStorage]));
+            this.applyParams(JSON.parse(localStorage['objectList_params_' + this.paramsInLocalStorage] ?? 'null'));
         }
     }
 
@@ -166,16 +166,17 @@ export class ObjectsList extends HTMLElement {
             history.pushState(null, '', url.toString());
         }
     }
+
     setLocalStorage() {
-        const prev = JSON.parse(localStorage.getItem('objectList_params_'+this.paramsInLocalStorage));
+        const prev = JSON.parse(localStorage.getItem('objectList_params_' + this.paramsInLocalStorage));
         const next = this.serializeParams(prev);
         if (JSON.stringify(prev) !== JSON.stringify(next)) {
-            localStorage.setItem('objectList_params_'+this.paramsInLocalStorage, JSON.stringify(next));
+            localStorage.setItem('objectList_params_' + this.paramsInLocalStorage, JSON.stringify(next));
         }
     }
 
     serializeParams(old = {}) {
-        old=old||{};
+        old = old || {};
         let ret = {};
         let changed = false;
         var visibleColumns = this.visibleColumns.map(x => x.dataName).join();
@@ -237,7 +238,7 @@ export class ObjectsList extends HTMLElement {
     }
 
     applyParams(params) {
-        if (params.visibleColumns) {
+        if (params?.visibleColumns) {
             const splitted = params.visibleColumns.split(',');
             this.hiddenColumns = new Set(this.columns.map(x => x.dataName));
             for (const name of splitted) {
@@ -256,13 +257,16 @@ export class ObjectsList extends HTMLElement {
                 }
             }
         }
-        if (params.sort) {
-            this.sort = params.sort;
+        if (params?.sort) {
+            this.sort = {
+                col: params.sort,
+                desc: params.sortDesc === 'true'
+            };
         }
-        if (params.columnFilters) {
+        if (params?.columnFilters) {
             this.columnFilters = new Map(JSON.parse(params.columnFilters));
         }
-        if (params.insideView) {
+        if (params?.insideView) {
             this.insideViewName = params.insideView;
         }
     }
@@ -434,4 +438,10 @@ export class ObjectsList extends HTMLElement {
     }
 }
 
-customElements.define('data-view', ObjectsList);
+customElements
+    .define(
+        'data-view'
+        ,
+        ObjectsList
+    )
+;
