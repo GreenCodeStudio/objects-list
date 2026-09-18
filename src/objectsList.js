@@ -7,6 +7,7 @@ import {ConcurencyLimiter} from "./utils/concurencyLimiter.js";
 import {IdsSet} from "./idsSet.js";
 import {ConfigPopup} from "./ConfigPopup.js";
 import {create} from "fast-creator";
+import {CalendarView} from "./calendarView.js";
 
 export class ObjectsList extends HTMLElement {
     constructor(datasource) {
@@ -224,8 +225,14 @@ export class ObjectsList extends HTMLElement {
         } else if (value == 'tableWideView') {
             this.insideViewClass = TableView
             this.insideViewParams = {wide: true}
-        } else {
+        } else if (value == 'listView') {
             this.insideViewClass = ListView
+            this.insideViewParams = {}
+        }else if (value == 'calendarView') {
+            this.insideViewClass = CalendarView
+            this.insideViewParams = {}
+        }else if (value == 'timelineView') {
+            this.insideViewClass = TimelineView
             this.insideViewParams = {}
         }
     }

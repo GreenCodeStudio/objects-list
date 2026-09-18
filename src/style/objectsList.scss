@@ -179,6 +179,12 @@ data-view {
             }
         }
     }
+    calendar-view{
+        .body{
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+        }
+    }
 
     .foot {
         border-top: 1px solid var(--second);

@@ -12,6 +12,10 @@
             <option value="tableView">{{t('objectList.tableView')}}</option>
             <option value="tableWideView">{{t('objectList.tableWideView')}}</option>
             <option value="listView">{{t('objectList.listView')}}</option>
+            <:if condition=showDatesViews >
+                <option value="calendarView">{{t('objectList.calendarView')}}</option>
+                <option value="timelineView">{{t('objectList.timelineView')}}</option>
+            </:if>
         </select>
     </label>
     <input type="search" placeholder=(t('objectList.search')) />

@@ -74,11 +74,11 @@ export class ListView extends AbstractView {
 
 
         tr.dataset.row = data.id;
-        // tr.oncontextmenu = this.contextMenu.bind(this, tr);
-        // tr.onclick = this.trOnClick.bind(this, data);
-        // tr.ondblclick = this.trOnDblClick.bind(this, data, tr);
-        // tr.onkeydown = this.trOnKeyDown.bind(this, data, tr);
-        // tr.ondragstart = this.trOnDragStart.bind(this, data, tr);
+         tr.oncontextmenu = this.contextMenu.bind(this, tr);
+         tr.onclick = this.trOnClick.bind(this, data);
+         tr.ondblclick = this.trOnDblClick.bind(this, data, tr);
+         tr.onkeydown = this.trOnKeyDown.bind(this, data, tr);
+         tr.ondragstart = this.trOnDragStart.bind(this, data, tr);
     }
 }
 

@@ -8,9 +8,12 @@ const dataSource={
         await new Promise(resolve=>setTimeout(resolve, 1000))
         return {
             rows:[
-                {id:1, name:'John'},
-                {id:2, name:'Doe'},
-                {id:3, name:'Smith'},
+                {id:1, start:'2026-09-01 12:00:00', end:'2026-09-01 14:00:00', name:'John'},
+                {id:2, start:'2026-09-01 15:00:00', end:'2026-09-01 16:00:00', name:'Jane'},
+                {id:3, start:'2026-09-01 19:00:00', end:'2026-09-01 22:00:00', name:'Bob'},
+                {id:4, start:'2026-09-02 12:00:00', end:'2026-09-02 14:00:00', name:'Alice'},
+                {id:5, start:'2026-09-02 15:00:00', end:'2026-09-02 16:00:00', name:'Charlie'},
+
             ],
             total:3000
         }
@@ -22,12 +25,16 @@ objectList.paramsInLocalStorage=document.location;
 objectList.columns=[
     {dataName:'id', name:'ID', sortName:'id'},
     {dataName:'name', name:'Name'},
-    {dataName:'a',name:'a', content:()=>{return 'aaa'}},
-    {dataName:'b',name:'b', content:()=>{return 'bbb'}, isFilter:true},
-    {dataName:'c',name:'c', content:()=>{return 'ccc'}},
+    {dataName:'start', name:'Start', sortName: 'start'},
+    {dataName:'end', name:'End', sortName: 'end'},
 ]
-objectList.generateActions=()=>[{title:'zz', href:'https://google.com'}]
+objectList.generateActions=()=>[
+    {title:'zz', href:'https://google.com'},
+    {title:'aaa', href:'https://bing.com',  main: true,},
+]
+objectList.dateRowCallback=(row)=>new Date(row.start)
 objectList.style.height='500px';
 document.body.appendChild(objectList);
 objectList.readUrl()
 objectList.refresh();
+

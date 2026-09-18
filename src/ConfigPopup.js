@@ -9,6 +9,7 @@ export class ConfigPopup extends HTMLElement {
         super();
         this.append(template({
             t,
+            showDatesViews: objectsList.dateRowCallback != null,
             categories: Object.entries(objectsList.columns.reduce((o, c) => {
                 o[c.category] = (o[c.category] ?? [])
                 o[c.category].push(c);
