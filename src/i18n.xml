@@ -29,10 +29,6 @@
             <value lang="pl">Widok kalendarza</value>
             <value lang="en">Calendar view</value>
         </node>
-        <node name="timelineView">
-            <value lang="pl">Widok osi czasu</value>
-            <value lang="en">Timeline view</value>
-        </node>
         <node name="startMultiEdit">
             <value lang="pl">Rozpocznij edycję wielu</value>
             <value lang="en">Start multi-edit</value>

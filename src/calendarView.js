@@ -43,7 +43,8 @@ export class CalendarView extends AbstractView {
             })
             this.body.append(dayElement)
             for (let item of data.rows.filter(r => this.objectsList.dateRowCallback(r).toISOString().substring(0, 10) == day.toISOString().substring(0, 10))) {
-                const itemElement = create('.item', {text: item})
+                const itemElement = create('.item')
+                itemElement.append(this.objectsList.calendarRowCallback(item))
                 dayElement.append(itemElement)
                 itemElement.oncontextmenu = this.contextMenu.bind(this, itemElement);
                 itemElement.onclick = this.trOnClick.bind(this, item);

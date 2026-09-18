@@ -63,13 +63,16 @@ export class ObjectsList extends HTMLElement {
     }
 
     get visibleColumns() {
-        return this.columnsReordered.filter(x => !this.hiddenColumns.has(x.dataName??x.sortName))
+        return this.columnsReordered.filter(x => !this.hiddenColumns.has(x.dataName ?? x.sortName))
     }
 
     refreshLimit() {
         this.limit = this.insideView.calcMaxVisibleItems(this.clientHeight - this.foot.clientHeight - 2);
         if (this.limit < 1) this.limit = 1;
-        if (this.infiniteScrollEnabled) {
+        if (this.insideView instanceof CalendarView) {
+            this.start = 0;
+            this.limit = 1000000;
+        } else if (this.infiniteScrollEnabled) {
             this.limit = Math.ceil(this.limit / 20) * 20 + 40;
         } else {
             this.start = Math.floor(Math.min(this.total, this.start) / this.limit) * this.limit;
@@ -91,8 +94,8 @@ export class ObjectsList extends HTMLElement {
         const refreshSymbol = Symbol();
         this.lastRefreshSymbol = refreshSymbol;
         this.lastRefreshSymbolTotal = refreshSymbol;
-        this.pagination.style.display=this.insideView instanceof CalendarView ? 'none' : '';
-        this.dateInput.style.display=this.insideView instanceof CalendarView ? '' : 'none';
+        this.pagination.style.display = this.insideView instanceof CalendarView ? 'none' : '';
+        this.dateInput.style.display = this.insideView instanceof CalendarView ? '' : 'none';
         if (this.asyncTotal) {
             const promise1 = this.loadConcurencyLimiter.run(async () => {
                 if (this.lastRefreshSymbol != refreshSymbol) return;
@@ -182,7 +185,7 @@ export class ObjectsList extends HTMLElement {
         old = old || {};
         let ret = {};
         let changed = false;
-        var visibleColumns = this.visibleColumns.map(x => x.dataName??x.sortName).join();
+        var visibleColumns = this.visibleColumns.map(x => x.dataName ?? x.sortName).join();
         if (old.visibleColumns || this.hiddenColumns.size || this.columnsReorderedChanged) {
             ret.visibleColumns = visibleColumns;
             changed = true;
@@ -230,11 +233,8 @@ export class ObjectsList extends HTMLElement {
         } else if (value == 'listView') {
             this.insideViewClass = ListView
             this.insideViewParams = {}
-        }else if (value == 'calendarView') {
+        } else if (value == 'calendarView') {
             this.insideViewClass = CalendarView
-            this.insideViewParams = {}
-        }else if (value == 'timelineView') {
-            this.insideViewClass = TimelineView
             this.insideViewParams = {}
         }
     }
@@ -249,13 +249,13 @@ export class ObjectsList extends HTMLElement {
     applyParams(params) {
         if (params?.visibleColumns) {
             const splitted = params.visibleColumns.split(',');
-            this.hiddenColumns = new Set(this.columns.map(x => x.dataName??x.sortName));
+            this.hiddenColumns = new Set(this.columns.map(x => x.dataName ?? x.sortName));
             for (const name of splitted) {
                 this.hiddenColumns.delete(name);
             }
             for (let i = splitted.length - 1; i > 0; i--) {
-                const column = this.columnsReordered.find(x => (x.dataName??x.sortName) == splitted[i - 1]);
-                const next = this.columnsReordered.find(x => (x.dataName??x.sortName) == splitted[i]);
+                const column = this.columnsReordered.find(x => (x.dataName ?? x.sortName) == splitted[i - 1]);
+                const next = this.columnsReordered.find(x => (x.dataName ?? x.sortName) == splitted[i]);
                 if (column) {
                     this.columnsReordered.splice(this.columnsReordered.indexOf(column), 1);
                     if (next)
@@ -322,10 +322,10 @@ export class ObjectsList extends HTMLElement {
             this.refresh();
         }
         this.foot.append(this.pagination);
-        this.dateInput = create('input', {type: 'month', value:new Date().toISOString().substring(0, 7)});
+        this.dateInput = create('input', {type: 'month', value: new Date().toISOString().substring(0, 7)});
         this.dateInput.onchange = date => {
             this.start = 0;
-            this.date=this.dateInput.value;
+            this.date = this.dateInput.value;
             this.refresh();
         }
         this.foot.append(this.dateInput);

@@ -14,10 +14,14 @@
             <option value="listView">{{t('objectList.listView')}}</option>
             <:if condition=showDatesViews >
                 <option value="calendarView">{{t('objectList.calendarView')}}</option>
-                <option value="timelineView">{{t('objectList.timelineView')}}</option>
             </:if>
         </select>
     </label>
+    <:if condition=exports >
+        <:foreach collection=exports item=x>
+            <button onclick=x.action type="button">{{x.name}}</button>
+        </:foreach>
+    </:if>
     <input type="search" placeholder=(t('objectList.search')) />
     <:foreach collection=categories item=category>
         <div class="categoryTableContainer">

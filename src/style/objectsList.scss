@@ -179,10 +179,18 @@ data-view {
             }
         }
     }
-    calendar-view{
-        .body{
+
+    calendar-view {
+        flex-grow: 1;
+
+        .bodyContainer {
+            overflow: scroll;
+        }
+
+        .body {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
+            min-height: 100%;
         }
     }
 
@@ -229,8 +237,9 @@ pagination-buttons {
         background: var(--main);
     }
 }
-.categoryTableContainer{
-    &:not(:has(.filter)) .filterHeader{
+
+.categoryTableContainer {
+    &:not(:has(.filter)) .filterHeader {
         display: none;
     }
 }

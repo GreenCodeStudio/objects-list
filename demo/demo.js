@@ -33,7 +33,16 @@ objectList.generateActions=()=>[
     {title:'aaa', href:'https://bing.com',  main: true,},
 ]
 objectList.dateRowCallback=(row)=>new Date(row.start)
+objectList.calendarRowCallback=(row)=>{
+    const element = document.createElement('div');
+    element.textContent = row.name;
+    return element;
+}
 objectList.style.height='500px';
+objectList.generateExports=()=>[
+    {name:'pdf', action:()=>{console.log('export pdf')}},
+    {name:'csv', action:()=>{console.log('export csv')}},
+]
 document.body.appendChild(objectList);
 objectList.readUrl()
 objectList.refresh();

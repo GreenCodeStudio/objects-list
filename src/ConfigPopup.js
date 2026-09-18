@@ -8,9 +8,11 @@ import {CalendarView} from "./calendarView.js";
 export class ConfigPopup extends HTMLElement {
     constructor(objectsList) {
         super();
+        const exports=objectsList.generateExports?objectsList.generateExports():null;
         this.append(template({
             t,
             showDatesViews: objectsList.dateRowCallback != null,
+            exports,
             categories: Object.entries(objectsList.columns.reduce((o, c) => {
                 o[c.category] = (o[c.category] ?? [])
                 o[c.category].push(c);
