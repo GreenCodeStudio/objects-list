@@ -3,6 +3,7 @@ import {t} from './i18n.xml';
 import {TableView} from "./tableView.js";
 import {ListView} from "./listView.js";
 import {ColumnFilter} from "./ColumnFilter.js";
+import {CalendarView} from "./calendarView.js";
 
 export class ConfigPopup extends HTMLElement {
     constructor(objectsList) {
@@ -31,6 +32,8 @@ export class ConfigPopup extends HTMLElement {
                 this.querySelector('.view').value = 'tableView'
         } else if (objectsList.insideViewClass == ListView) {
             this.querySelector('.view').value = 'listView'
+        } else if (objectsList.insideViewClass == CalendarView) {
+            this.querySelector('.view').value = 'calendarView'
         }
 
         this.querySelector('.view').onchange = () => {

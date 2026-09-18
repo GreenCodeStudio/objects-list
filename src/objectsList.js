@@ -91,6 +91,8 @@ export class ObjectsList extends HTMLElement {
         const refreshSymbol = Symbol();
         this.lastRefreshSymbol = refreshSymbol;
         this.lastRefreshSymbolTotal = refreshSymbol;
+        this.pagination.style.display=this.insideView instanceof CalendarView ? 'none' : '';
+        this.dateInput.style.display=this.insideView instanceof CalendarView ? '' : 'none';
         if (this.asyncTotal) {
             const promise1 = this.loadConcurencyLimiter.run(async () => {
                 if (this.lastRefreshSymbol != refreshSymbol) return;
@@ -320,6 +322,13 @@ export class ObjectsList extends HTMLElement {
             this.refresh();
         }
         this.foot.append(this.pagination);
+        this.dateInput = create('input', {type: 'month', value:new Date().toISOString().substring(0, 7)});
+        this.dateInput.onchange = date => {
+            this.start = 0;
+            this.date=this.dateInput.value;
+            this.refresh();
+        }
+        this.foot.append(this.dateInput);
         this.filterShortContainer = create('.filterShortContainer');
         this.foot.append(this.filterShortContainer);
         this.searchForm = create('form', {className: 'search'});

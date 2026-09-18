@@ -23,8 +23,15 @@ export class CalendarView extends AbstractView {
     }
 
     loadData(data) {
+        while(this.body.firstChild){
+            this.body.removeChild(this.body.firstChild);
+        }
         console.log('data', data)
-        const startDay = new Date(2026, 8, 1)
+        let startDay = new Date()
+        if(this.objectsList.date){
+            startDay = new Date(this.objectsList.date)
+        }
+        startDay.setDate(1);
 
         startDay.setDate(startDay.getDate() - startDay.getDay() + 1);
         for (let i = 0; i < 7 * 6; i++) {
