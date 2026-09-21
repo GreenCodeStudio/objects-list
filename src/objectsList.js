@@ -10,7 +10,7 @@ import {create} from "fast-creator";
 import {CalendarView} from "./calendarView.js";
 
 export class ObjectsList extends HTMLElement {
-    constructor(datasource) {
+    constructor(datasource, defaultView='tableView') {
         super();
         this.columns = [];
         this.columnsReordered = [];
@@ -18,7 +18,7 @@ export class ObjectsList extends HTMLElement {
         this.hiddenColumns = new Set()
         this.columnFilters = new Map();
         this.generateActions = () => [];
-        this.insideViewClass = TableView;
+        this.insideViewClass = defaultView === 'calendarView' ? CalendarView : TableView;
         this.icon = 'icon-document';
         this.loadConcurencyLimiter = new ConcurencyLimiter();
         this.loadConcurencyLimiterTotal = new ConcurencyLimiter();

@@ -43,6 +43,10 @@ objectList.generateExports=()=>[
     {name:'pdf', action:()=>{console.log('export pdf')}},
     {name:'csv', action:()=>{console.log('export csv')}},
 ]
+objectList.calendarDayActions=(day)=>[
+    {title:'zz', href:'https://google.com'},
+    {title:'aaa', href:'https://bing.com/'+day,  main: true,},
+]
 document.body.appendChild(objectList);
 objectList.readUrl()
 objectList.refresh();

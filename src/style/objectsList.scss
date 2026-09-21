@@ -185,12 +185,21 @@ data-view {
 
         .bodyContainer {
             overflow: scroll;
+            display: grid;
+            min-height: 100%;
         }
 
         .body {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
             min-height: 100%;
+            .day{
+                display: flex;
+                flex-direction: column;
+                .calendarDayActionsWrapper{
+                    flex-grow: 1;
+                }
+            }
         }
     }
 
