@@ -42,46 +42,49 @@ export class CalendarView extends AbstractView {
                 data: {date: day.toISOString().substring(0, 10)},
                 text: day.toISOString().substring(0, 10)
             })
-            dayElement.classList.toggle('outsideRange', day.getMonth() != logicalStartDate.getMonth());
+            const outsideRange = day.getMonth() != logicalStartDate.getMonth();
+            dayElement.classList.toggle('outsideRange', outsideRange);
             this.body.append(dayElement)
-            for (let item of data.rows.filter(r => this.objectsList.dateRowCallback(r).toISOString().substring(0, 10) == day.toISOString().substring(0, 10))) {
-                const itemElement = create('.item')
-                if(this.objectsList.colorRowCallback) {
-                    const color = this.objectsList.colorRowCallback(item);
-                    if(color) {
-                        itemElement.style.setProperty('--main', color);
+            if (!outsideRange) {
+                for (let item of data.rows.filter(r => this.objectsList.dateRowCallback(r).toISOString().substring(0, 10) == day.toISOString().substring(0, 10)).toSorted((a, b) => this.objectsList.dateRowCallback(a) - this.objectsList.dateRowCallback(b))) {
+                    const itemElement = create('.item')
+                    if (this.objectsList.colorRowCallback) {
+                        const color = this.objectsList.colorRowCallback(item);
+                        if (color) {
+                            itemElement.style.setProperty('--main', color);
+                        }
                     }
+                    itemElement.append(this.objectsList.calendarRowCallback(item))
+                    dayElement.append(itemElement)
+                    itemElement.dataset.row = item.id;
+                    itemElement.oncontextmenu = this.contextMenu.bind(this, itemElement);
+                    itemElement.onclick = this.trOnClick.bind(this, item);
+                    itemElement.ondblclick = this.trOnDblClick.bind(this, item, itemElement);
+                    itemElement.onkeydown = this.trOnKeyDown.bind(this, item, itemElement);
+                    itemElement.ondragstart = this.trOnDragStart.bind(this, item, itemElement);
                 }
-                itemElement.append(this.objectsList.calendarRowCallback(item))
-                dayElement.append(itemElement)
-                itemElement.dataset.row = item.id;
-                itemElement.oncontextmenu = this.contextMenu.bind(this, itemElement);
-                itemElement.onclick = this.trOnClick.bind(this, item);
-                itemElement.ondblclick = this.trOnDblClick.bind(this, item, itemElement);
-                itemElement.onkeydown = this.trOnKeyDown.bind(this, item, itemElement);
-                itemElement.ondragstart = this.trOnDragStart.bind(this, item, itemElement);
-            }
-            if (this.objectsList.calendarDayActions) {
-                const calendarDayActionsWrapper= create('.calendarDayActionsWrapper');
-                dayElement.append(calendarDayActionsWrapper);
-                let dayActions = this.objectsList.calendarDayActions(day);
-                for (let action of dayActions) {
-                    let actionButton = create(action.href ? 'a.button' : 'button', {
-                        title: action.name
-                    });
-                    calendarDayActionsWrapper.append(create(actionButton));
-                    actionButton.classList.add('action-' + (action.action ?? 'view'));
+                if (this.objectsList.calendarDayActions) {
+                    const calendarDayActionsWrapper = create('.calendarDayActionsWrapper');
+                    dayElement.append(calendarDayActionsWrapper);
+                    let dayActions = this.objectsList.calendarDayActions(day);
+                    for (let action of dayActions) {
+                        let actionButton = create(action.href ? 'a.button' : 'button', {
+                            title: action.name
+                        });
+                        calendarDayActionsWrapper.append(create(actionButton));
+                        actionButton.classList.add('action-' + (action.action ?? 'view'));
 
-                    if (action.href) {
-                        actionButton.href = action.href;
-                    }
-                    if (action.command) {
-                        actionButton.onclick = action.command;
-                    }
-                    if (action.icon) {
-                        actionButton.append(create('span', {classList: [action.icon]}));
-                    } else {
-                        actionButton.textContent = action.name;
+                        if (action.href) {
+                            actionButton.href = action.href;
+                        }
+                        if (action.command) {
+                            actionButton.onclick = action.command;
+                        }
+                        if (action.icon) {
+                            actionButton.append(create('span', {classList: [action.icon]}));
+                        } else {
+                            actionButton.textContent = action.name;
+                        }
                     }
                 }
             }

@@ -1,6 +1,6 @@
 {
     "name": "@green-code-studio/objects-list",
-    "version": "1.12.5",
+    "version": "1.12.7",
     "main": "src/index.js",
     "author": "Mateusz Krawczyk",
     "license": "MIT",
