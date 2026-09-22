@@ -32,6 +32,7 @@ export class CalendarView extends AbstractView {
             startDay = new Date(this.objectsList.date)
         }
         startDay.setDate(1);
+        const logicalStartDate = new Date(startDay);
 
         startDay.setDate(startDay.getDate() - startDay.getDay() + 1);
         for (let i = 0; i < 7 * 6; i++) {
@@ -41,9 +42,16 @@ export class CalendarView extends AbstractView {
                 data: {date: day.toISOString().substring(0, 10)},
                 text: day.toISOString().substring(0, 10)
             })
+            dayElement.classList.toggle('outsideRange', day.getMonth() != logicalStartDate.getMonth());
             this.body.append(dayElement)
             for (let item of data.rows.filter(r => this.objectsList.dateRowCallback(r).toISOString().substring(0, 10) == day.toISOString().substring(0, 10))) {
                 const itemElement = create('.item')
+                if(this.objectsList.colorRowCallback) {
+                    const color = this.objectsList.colorRowCallback(item);
+                    if(color) {
+                        itemElement.style.setProperty('--main', color);
+                    }
+                }
                 itemElement.append(this.objectsList.calendarRowCallback(item))
                 dayElement.append(itemElement)
                 itemElement.dataset.row = item.id;

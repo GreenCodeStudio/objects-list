@@ -208,6 +208,10 @@ export class ObjectsList extends HTMLElement {
         if (old.insideView || this.insideViewName) {
             ret.insideView = this.insideViewName;
         }
+        const currentDate = new Date().toISOString().substring(0, 7);
+        if (old.date || this.date != currentDate) {
+            ret.date = this.date;
+        }
         return ret;
     }
 
@@ -277,6 +281,9 @@ export class ObjectsList extends HTMLElement {
         }
         if (params?.insideView) {
             this.insideViewName = params.insideView;
+        }
+        if (params?.date) {
+            this.date = params.date;
         }
     }
 

@@ -48,6 +48,7 @@ objectList.calendarDayActions=(day)=>[
     {title:'aaa', href:'https://bing.com/'+day,  main: true,},
 ]
 document.body.appendChild(objectList);
+objectList.paramsInUrl=true;
 objectList.readUrl()
 objectList.refresh();
 
