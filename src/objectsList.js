@@ -8,6 +8,7 @@ import {IdsSet} from "./idsSet.js";
 import {ConfigPopup} from "./ConfigPopup.js";
 import {create} from "fast-creator";
 import {CalendarView} from "./calendarView.js";
+import {GraphView} from "./graphView.js";
 
 export class ObjectsList extends HTMLElement {
     constructor(datasource, defaultView='tableView') {
@@ -96,7 +97,18 @@ export class ObjectsList extends HTMLElement {
         this.lastRefreshSymbolTotal = refreshSymbol;
         this.pagination.style.display = this.insideView instanceof CalendarView ? 'none' : '';
         this.dateInput.style.display = this.insideView instanceof CalendarView ? '' : 'none';
-        if (this.asyncTotal) {
+        if(this.insideView instanceof GraphView){
+            await this.loadConcurencyLimiter.run(async () => {
+                if (this.lastRefreshSymbol != refreshSymbol) return;
+
+                let data = await this.datasource.getSummary(this);
+                if (this.lastRefreshSymbol != refreshSymbol) return;
+
+                this.currentSummary = data.summary;
+                this.insideView.loadData(data);
+            });
+        }
+        else if (this.asyncTotal) {
             const promise1 = this.loadConcurencyLimiter.run(async () => {
                 if (this.lastRefreshSymbol != refreshSymbol) return;
 
@@ -239,6 +251,9 @@ export class ObjectsList extends HTMLElement {
             this.insideViewParams = {}
         } else if (value == 'calendarView') {
             this.insideViewClass = CalendarView
+            this.insideViewParams = {}
+        }else if (value == 'graphView') {
+            this.insideViewClass = GraphView
             this.insideViewParams = {}
         }
     }

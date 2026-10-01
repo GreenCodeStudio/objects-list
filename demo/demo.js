@@ -3,6 +3,7 @@ import '../src/style/objectsList.scss';
 
 console.log('aa');
 const dataSource={
+    canGetSummary:true,
     async get(options){
         console.log('aaaaaa')
         await new Promise(resolve=>setTimeout(resolve, 1000))
@@ -16,6 +17,22 @@ const dataSource={
 
             ],
             total:3000
+        }
+    },
+    async getSummary(options){
+        console.log('aaaaaa')
+        await new Promise(resolve=>setTimeout(resolve, 1000))
+        return {
+            summary: [
+                {date: '2026-09-01', count: 3},
+                {date: '2026-09-02', count: 2},
+                {date: '2026-09-03', count: 6},
+                {date: '2026-09-04', count: 7},
+                {date: '2026-09-05', count: 0},
+                {date: '2026-09-06', count: 4},
+                {date: '2026-09-07', count: 1},
+                {date: '2026-09-08', count: 0},
+            ]
         }
     }
 }

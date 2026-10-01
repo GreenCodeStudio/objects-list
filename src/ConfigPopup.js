@@ -4,6 +4,7 @@ import {TableView} from "./tableView.js";
 import {ListView} from "./listView.js";
 import {ColumnFilter} from "./ColumnFilter.js";
 import {CalendarView} from "./calendarView.js";
+import {GraphView} from "./graphView.js";
 
 export class ConfigPopup extends HTMLElement {
     constructor(objectsList) {
@@ -12,6 +13,7 @@ export class ConfigPopup extends HTMLElement {
         this.append(template({
             t,
             showDatesViews: objectsList.dateRowCallback != null,
+            showGraphViews: objectsList.datasource.canGetSummary,
             exports,
             categories: Object.entries(objectsList.columns.reduce((o, c) => {
                 o[c.category] = (o[c.category] ?? [])
@@ -36,6 +38,8 @@ export class ConfigPopup extends HTMLElement {
             this.querySelector('.view').value = 'listView'
         } else if (objectsList.insideViewClass == CalendarView) {
             this.querySelector('.view').value = 'calendarView'
+        } else if (objectsList.insideViewClass == GraphView) {
+            this.querySelector('.view').value = 'graphView'
         }
 
         this.querySelector('.view').onchange = () => {

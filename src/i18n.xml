@@ -29,6 +29,10 @@
             <value lang="pl">Widok kalendarza</value>
             <value lang="en">Calendar view</value>
         </node>
+        <node name="graphView">
+            <value lang="pl">Widok wykresu</value>
+            <value lang="en">Graph view</value>
+        </node>
         <node name="startMultiEdit">
             <value lang="pl">Rozpocznij edycję wielu</value>
             <value lang="en">Start multi-edit</value>

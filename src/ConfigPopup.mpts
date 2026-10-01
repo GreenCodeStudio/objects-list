@@ -15,6 +15,9 @@
             <:if condition=showDatesViews >
                 <option value="calendarView">{{t('objectList.calendarView')}}</option>
             </:if>
+            <:if condition=showGraphViews >
+                <option value="graphView">{{t('objectList.graphView')}}</option>
+            </:if>
         </select>
     </label>
     <:if condition=exports >

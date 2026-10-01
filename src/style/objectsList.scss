@@ -193,11 +193,29 @@ data-view {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
             min-height: 100%;
-            .day{
+
+            .day {
                 display: flex;
                 flex-direction: column;
-                .calendarDayActionsWrapper{
+
+                .calendarDayActionsWrapper {
                     flex-grow: 1;
+                }
+            }
+        }
+    }
+
+    graph-view {
+        flex-grow: 1;
+        .bodyContainer{
+            height: 100%;
+            svg{
+                height: 100%;
+                width: 100%;
+                .lineGraph{
+                    fill: none;
+                    stroke: black;
+                    stroke-width: 2px;
                 }
             }
         }
