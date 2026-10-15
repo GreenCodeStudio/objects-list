@@ -331,12 +331,62 @@ export class ObjectsList extends HTMLElement {
         else return [];
     }
 
+    changeInfiniteScrollEnabled(isEnabled) {
+        this.infiniteScrollEnabled = isEnabled;
+        this.querySelector('button.paginationModeButton span').className = isEnabled ? 'icon-pagination' : 'icon-scroll';
+        this.refresh();
+    }
+
     initFoot() {
         this.foot = create('.foot');
         this.append(this.foot);
+        const buttonWrapper = create('.buttonWrapper');
+        this.foot.append(buttonWrapper);
         let menuButton = create('button.menuButton span.icon-settings');
-        this.foot.append(menuButton)
         menuButton.onclick = e => this.showConfigPopup();
+        buttonWrapper.append(menuButton);
+
+        let paginationModeButton = create('button.paginationModeButton', {
+            title: t('objectList.paginationMode'), onclick: e => {
+                this.changeInfiniteScrollEnabled(!this.infiniteScrollEnabled);
+            }
+        }, create(this.infiniteScrollEnabled ? 'span.icon-pagination' : 'span.icon-scroll'));
+        buttonWrapper.append(paginationModeButton);
+
+
+        buttonWrapper.append(create('button', {
+            title: t('objectList.tableView'),
+            onclick: () => {
+                this.insideViewClass = TableView;
+                this.refresh();
+            }
+        }, create('span.icon-table')));
+
+        buttonWrapper.append(create('button', {
+            title: t('objectList.listView'),
+            onclick: () => {
+                this.insideViewClass = ListView;
+                this.refresh();
+            }
+        }, create('span.icon-list')));
+        if (this.dateRowCallback != null) {
+            buttonWrapper.append(create('button', {
+                title: t('objectList.calendarView'),
+                onclick: () => {
+                    this.insideViewClass = CalendarView;
+                    this.refresh();
+                }
+            }, create('span.icon-calendar')));
+        }
+        if (this.datasource.canGetSummary) {
+            buttonWrapper.append(create('button', {
+                title: t('objectList.graphView'),
+                onclick: () => {
+                    this.insideViewClass = GraphView;
+                    this.refresh();
+                }
+            }, create('span.icon-graph')));
+        }
         this.pagination = new PaginationButtons();
         this.pagination.onpageclick = (page) => {
             this.start = page * this.limit;
@@ -380,15 +430,13 @@ export class ObjectsList extends HTMLElement {
             text: t('objectList.paginationMode'),
             icon: 'icon-pagination',
             onclick: () => {
-                this.infiniteScrollEnabled = false;
-                this.refresh();
+                this.changeInfiniteScrollEnabled(false);
             }
         }, {
             text: t('objectList.scrollMode'),
             icon: 'icon-scroll',
             onclick: () => {
-                this.infiniteScrollEnabled = true;
-                this.refresh();
+                this.changeInfiniteScrollEnabled(true);
             }
         }, {
             text: t('objectList.tableView'),
@@ -408,7 +456,7 @@ export class ObjectsList extends HTMLElement {
         if (this.dateRowCallback != null) {
             elements.push({
                 text: t('objectList.calendarView'),
-                 icon: 'icon-calendar',
+                icon: 'icon-calendar',
                 onclick: () => {
                     this.insideViewClass = CalendarView;
                     this.refresh();
@@ -418,7 +466,7 @@ export class ObjectsList extends HTMLElement {
         if (this.datasource.canGetSummary) {
             elements.push({
                 text: t('objectList.graphView'),
-                 icon: 'icon-graph',
+                icon: 'icon-graph',
                 onclick: () => {
                     this.insideViewClass = GraphView;
                     this.refresh();
@@ -431,7 +479,7 @@ export class ObjectsList extends HTMLElement {
                 icon: 'icon-edit',
                 onclick: async () => {
                     this.insideViewClass = TableView;
-                    const getSelects=datasource.getSelects?await datasource.getSelects(this):null;
+                    const getSelects = datasource.getSelects ? await datasource.getSelects(this) : null;
                     this.refresh();
                     this.insideView.startMultiEdit(getSelects);
                 }
