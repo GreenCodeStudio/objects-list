@@ -94,7 +94,7 @@ export class TableView extends AbstractView {
             node.style.setProperty('--move-x', 0 + 'px');
             removeEventListener('mousemove', onmove);
             removeEventListener('mouseup', onup);
-            if(changed) {
+            if (changed) {
                 this.objectsList.refresh()
             }
         }
@@ -137,12 +137,21 @@ export class TableView extends AbstractView {
             tr.append(td);
             if (this.multiEdit && column.dataName) {
                 tr.dataset.id = data.id;
-                td.append(create('input', {
-                    data: {name: column.dataName},
-                    value: data[column.dataName],
-                    onclick: e => e.stopPropagation(),
-                    onchange: () => this.multiEditChanged(tr)
-                }));
+                if (column.dataType === 'select') {
+                    let select = create('select', {
+                        data: {name: column.dataName},
+                        onchange: () => this.multiEditChanged(tr)
+                    }, ...this.selects[column.dataName].map(x => create('option', {value: x.id, text: x.name})));
+                    select.value = data[column.dataName];
+                    td.append(select);
+                } else {
+                    td.append(create('input', {
+                        data: {name: column.dataName},
+                        value: data[column.dataName],
+                        onclick: e => e.stopPropagation(),
+                        onchange: () => this.multiEditChanged(tr)
+                    }));
+                }
             } else {
                 td.append(column.content?.call(column, data) || data[column.dataName] || '');
             }
@@ -194,7 +203,7 @@ export class TableView extends AbstractView {
         const widths = this.calculateColumnsWidths();
         for (let tr of this.body?.children ?? []) {
             for (let i = 0; i < widths.length; i++) {
-                if(tr.children[i]) {
+                if (tr.children[i]) {
                     tr.children[i].style.width = widths[i] + 'px';
                 }
             }
@@ -271,8 +280,9 @@ export class TableView extends AbstractView {
         setTimeout(() => this.copyForced = null, 100);
     }
 
-    startMultiEdit() {
+    startMultiEdit(selects) {
         this.multiEdit = true;
+        this.selects = selects;
     }
 
     multiEditChanged(tr, save = false) {
