@@ -11,7 +11,7 @@ import {CalendarView} from "./calendarView.js";
 import {GraphView} from "./graphView.js";
 
 export class ObjectsList extends HTMLElement {
-    constructor(datasource, defaultView='tableView') {
+    constructor(datasource, defaultView = 'tableView') {
         super();
         this.columns = [];
         this.columnsReordered = [];
@@ -97,7 +97,7 @@ export class ObjectsList extends HTMLElement {
         this.lastRefreshSymbolTotal = refreshSymbol;
         this.pagination.style.display = this.insideView instanceof CalendarView ? 'none' : '';
         this.dateInput.style.display = this.insideView instanceof CalendarView ? '' : 'none';
-        if(this.insideView instanceof GraphView){
+        if (this.insideView instanceof GraphView) {
             await this.loadConcurencyLimiter.run(async () => {
                 if (this.lastRefreshSymbol != refreshSymbol) return;
 
@@ -107,8 +107,7 @@ export class ObjectsList extends HTMLElement {
                 this.currentSummary = data.summary;
                 this.insideView.loadData(data);
             });
-        }
-        else if (this.asyncTotal) {
+        } else if (this.asyncTotal) {
             const promise1 = this.loadConcurencyLimiter.run(async () => {
                 if (this.lastRefreshSymbol != refreshSymbol) return;
 
@@ -252,7 +251,7 @@ export class ObjectsList extends HTMLElement {
         } else if (value == 'calendarView') {
             this.insideViewClass = CalendarView
             this.insideViewParams = {}
-        }else if (value == 'graphView') {
+        } else if (value == 'graphView') {
             this.insideViewClass = GraphView
             this.insideViewParams = {}
         }
@@ -400,12 +399,32 @@ export class ObjectsList extends HTMLElement {
             }
         }, {
             text: t('objectList.listView'),
-            icon: 'icon-table',
+            icon: 'icon-list',
             onclick: () => {
                 this.insideViewClass = ListView;
                 this.refresh();
             }
         }];
+        if (this.dateRowCallback != null) {
+            elements.push({
+                text: t('objectList.calendarView'),
+                 icon: 'icon-calendar',
+                onclick: () => {
+                    this.insideViewClass = CalendarView;
+                    this.refresh();
+                }
+            });
+        }
+        if (this.datasource.canGetSummary) {
+            elements.push({
+                text: t('objectList.graphView'),
+                 icon: 'icon-graph',
+                onclick: () => {
+                    this.insideViewClass = GraphView;
+                    this.refresh();
+                }
+            });
+        }
         if (this.allowTableEdit) {
             elements.push({
                 text: t('objectList.startMultiEdit'),
