@@ -479,7 +479,7 @@ export class ObjectsList extends HTMLElement {
                 icon: 'icon-edit',
                 onclick: async () => {
                     this.insideViewClass = TableView;
-                    const getSelects = datasource.getSelects ? await datasource.getSelects(this) : null;
+                    const getSelects = this.datasource.getSelects ? await this.datasource.getSelects(this) : null;
                     this.refresh();
                     this.insideView.startMultiEdit(getSelects);
                 }
