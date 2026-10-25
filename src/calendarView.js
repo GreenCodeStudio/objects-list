@@ -44,10 +44,16 @@ export class CalendarView extends AbstractView {
             })
             const outsideRange = day.getMonth() != logicalStartDate.getMonth();
             dayElement.classList.toggle('outsideRange', outsideRange);
+            dayElement.addEventListener('dragover', (e) => {
+                e.day = day;
+            });
+            dayElement.addEventListener('drop', (e) => {
+                e.day = day;
+            });
             this.body.append(dayElement)
             if (!outsideRange) {
                 for (let item of data.rows.filter(r => this.objectsList.dateRowCallback(r).toISOString().substring(0, 10) == day.toISOString().substring(0, 10)).toSorted((a, b) => this.objectsList.dateRowCallback(a) - this.objectsList.dateRowCallback(b))) {
-                    const itemElement = create('.item')
+                    const itemElement = create('.item', {draggable: 'true'})
                     if (this.objectsList.colorRowCallback) {
                         const color = this.objectsList.colorRowCallback(item);
                         if (color) {

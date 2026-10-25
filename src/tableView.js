@@ -141,8 +141,8 @@ export class TableView extends AbstractView {
                     let select = create('select', {
                         data: {name: column.dataName},
                         onchange: () => this.multiEditChanged(tr)
-                    }, ...this.selects[column.dataName].map(x => create('option', {value: x.id, text: x.name})));
-                    select.value = data[column.dataName];
+                    }, ...this.selects[column.dataName].map(x => create('option', {value: x.id, text: x.title})));
+                    select.value = data[column.dataName]?.id;
                     td.append(select);
                 } else {
                     td.append(create('input', {

@@ -1,6 +1,6 @@
-
 import {t} from "./i18n.xml";
 import {ContextMenu} from "@green-code-studio/context-menu/dist/index.mjs";
+
 export class AbstractView extends HTMLElement {
     loadData(data, start, limit, infiniteScrollEnabled) {
         this.style.setProperty('--height', (data.total * this.rowHeight) + 'px');
@@ -80,6 +80,7 @@ export class AbstractView extends HTMLElement {
             }
         }
     }
+
     contextMenu(tr, event) {
         event.stopPropagation();
         if (!this.objectsList.selected.has(tr.dataset.row)) {
@@ -117,6 +118,7 @@ export class AbstractView extends HTMLElement {
         })
         ContextMenu.openContextMenu(event, elements);
     }
+
     trOnKeyDown(row, tr, e) {
         console.log('trOnKeyDown')
         if (e.key === 'Enter') {
@@ -192,7 +194,7 @@ export class AbstractView extends HTMLElement {
         }
         dataTransfer.setData('text/html', this.generateTableHtml(trs));
         dataTransfer.setData('text/plain', this.generateTableTextPlain(trs));
-
+        dataTransfer.setData('application/objects-list-data', JSON.stringify(this.objectsList.getSelectedData()));
     }
 
     refreshSelectedClasses() {
