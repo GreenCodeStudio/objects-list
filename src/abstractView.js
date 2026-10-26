@@ -192,9 +192,23 @@ export class AbstractView extends HTMLElement {
         if (action && action.hrefArray) {
             dataTransfer.setData('text/uri-list', action.hrefArray.map(x => new URL(x, document.baseURI)).map(x => x.toString()).join("\r\n#\r\n"));
         }
-        dataTransfer.setData('text/html', this.generateTableHtml(trs));
-        dataTransfer.setData('text/plain', this.generateTableTextPlain(trs));
-        dataTransfer.setData('application/objects-list-data', JSON.stringify(this.objectsList.getSelectedData()));
+        if (this.generateTableHtml) {
+            dataTransfer.setData('text/html', this.generateTableHtml(trs));
+        }
+        if (this.generateTableTextPlain) {
+            dataTransfer.setData('text/plain', this.generateTableTextPlain(trs));
+        }
+        dataTransfer.setData('application/objects-list-data', JSON.stringify(this.objectsList.getSelectedData().map(item => {
+            const action = this.objectsList.generateActions([item], 'dataTransfer').find(x => x.main);
+            const ret = {item};
+            if (action && action.href) {
+                ret.href = action.href;
+            }
+            if (action && action.hrefArray) {
+                ret.href = new URL(action.hrefArray[0], document.baseURI).toString();
+            }
+            return ret;
+        })));
     }
 
     refreshSelectedClasses() {

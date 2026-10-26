@@ -33,8 +33,11 @@ export class CalendarView extends AbstractView {
         }
         startDay.setDate(1);
         const logicalStartDate = new Date(startDay);
-
-        startDay.setDate(startDay.getDate() - startDay.getDay() + 1);
+        let startDate = startDay.getDate() - startDay.getDay() + 1;
+        if (startDate > 1) {
+            startDate -= 7;
+        }
+        startDay.setDate(startDate);
         for (let i = 0; i < 7 * 6; i++) {
             const day = new Date(startDay);
             day.setDate(startDay.getDate() + i);
