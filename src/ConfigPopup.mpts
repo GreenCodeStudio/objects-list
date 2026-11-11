@@ -55,7 +55,7 @@
                         {{column.name}}
                     </td>
                     <:if condition=column.isFilter >
-                        <td class="filter"  data-name=column.dataName??column.sortName >
+                        <td class="filter"  data-name=(column.dataName??column.sortName) >
                         </td>
                     </:if>
 
