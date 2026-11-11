@@ -7,7 +7,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 export default {
     entry: {
         index: './src/index.js',
-        style: './src/style/objectsList.scss',
+        style: './src/style/style.js',
     },
     output: {
         path: path.resolve(__dirname, './dist'),

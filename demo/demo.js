@@ -1,5 +1,5 @@
 import {ObjectsList} from "../src/index.js";
-import '../src/style/objectsList.scss';
+import '../src/style/style.js';
 
 console.log('aa');
 const dataSource={
