@@ -25,7 +25,7 @@
             <button onclick=x.action type="button">{{x.name}}</button>
         </:foreach>
     </:if>
-    <input type="search" placeholder=(t('objectList.search')) />
+    <input type="search" placeholder=(t('objectList.search')) >
     <:foreach collection=categories item=category>
         <div class="categoryTableContainer">
         {{category.name}}
