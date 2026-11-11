@@ -107,6 +107,7 @@ export class AbstractView extends HTMLElement {
             text: action.name,
             icon: action.icon,
             class: action.action ? 'action-' + action.action : '',
+            href: action.href,
             onclick: action.command || (() => this.objectsList.gotoUrl(action.href))
         }));
         elements.push({
