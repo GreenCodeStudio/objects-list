@@ -44,7 +44,7 @@
             <:foreach collection=category.columns item=column>
                 <tr>
                     <td>
-                        <input type="checkbox" data-name=column.dataName??column.sortName />
+                        <input type="checkbox" data-name=(column.dataName??column.sortName) >
                     </td>
                     <td>
                         <:if condition=column.sortName >
