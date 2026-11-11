@@ -19,7 +19,53 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, `data-view {
+___CSS_LOADER_EXPORT___.push([module.id, `.contextMenu {
+  position: fixed;
+  z-index: 1000;
+  margin: 0;
+  padding: 0;
+  max-width: 100vh;
+  min-width: 200px;
+  user-select: none;
+  background: var(--background);
+}
+.contextMenu li, .contextMenu a {
+  display: flex;
+  cursor: pointer;
+  margin: 0;
+  white-space: nowrap;
+  align-items: center;
+}
+.contextMenu li .icon, .contextMenu a .icon {
+  display: inline-block;
+  flex: 0 0 50px;
+  text-align: center;
+  font-size: 1em;
+  line-height: 1em;
+  vertical-align: middle;
+}
+.contextMenu li .iconPlaceholder, .contextMenu a .iconPlaceholder {
+  display: inline-block;
+  width: 50px;
+}
+.contextMenu li .content, .contextMenu a .content {
+  flex: 1 1 auto;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 16px 8px;
+  line-height: 1em;
+  vertical-align: middle;
+}
+.contextMenu li .linkNewTab, .contextMenu a .linkNewTab {
+  width: 24px;
+  justify-self: left;
+  background: transparent;
+  align-self: stretch;
+}
+
+data-view {
   border: 1px solid var(--second);
   display: flex;
   flex-direction: column;
