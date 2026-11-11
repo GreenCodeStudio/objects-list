@@ -108,6 +108,7 @@ data-view {
                     flex: 0 0 auto;
                     box-sizing: border-box;
                     height: var(--rowHeight);
+                    line-height: calc(var(--rowHeight) - 10px);
 
                     button, .button {
                         font-size: 16px;
@@ -225,6 +226,10 @@ data-view {
         border-top: 1px solid var(--second);
         display: flex;
         justify-content: space-between;
+
+        .button-wrapper{
+            display: flex;
+        }
 
         @media (max-width: 600px) {
             form {
