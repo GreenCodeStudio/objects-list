@@ -975,7 +975,17 @@ class AbstractView extends HTMLElement {
             icon: action.icon,
             class: action.action ? 'action-' + action.action : '',
             href: action.href,
-            onclick: action.command || (() => this.objectsList.gotoUrl(action.href))
+            onclick: action.command || ((e) => {
+                if (e.ctrlKey && e.shiftKey) {
+                    //nothing
+                } else if (e.ctrlKey) {
+                    window.open(element.href, '_blank');
+                } else if (e.shiftKey) {
+                    window.open(element.href, '_blank', 'left=0,top=0');
+                } else {
+                    this.objectsList.gotoUrl(action.href);
+                }
+            })
         }));
         elements.push({
             text: 'copy',
