@@ -979,9 +979,9 @@ class AbstractView extends HTMLElement {
                 if (e.ctrlKey && e.shiftKey) {
                     //nothing
                 } else if (e.ctrlKey) {
-                    window.open(element.href, '_blank');
+                    window.open(action.href, '_blank');
                 } else if (e.shiftKey) {
-                    window.open(element.href, '_blank', 'left=0,top=0');
+                    window.open(action.href, '_blank', 'left=0,top=0');
                 } else {
                     this.objectsList.gotoUrl(action.href);
                 }
