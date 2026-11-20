@@ -2443,6 +2443,11 @@ class TableView extends _abstractView_js__WEBPACK_IMPORTED_MODULE_2__.AbstractVi
             for (let i = 0; i < widths.length; i++) {
                 if (tr.children[i]) {
                     tr.children[i].style.width = widths[i] + 'px';
+                    if(widths[i]==0){
+                        tr.children[i].style.display = 'none';
+                    } else {
+                        tr.children[i].style.display = '';
+                    }
                 }
             }
         }
@@ -2455,6 +2460,11 @@ class TableView extends _abstractView_js__WEBPACK_IMPORTED_MODULE_2__.AbstractVi
                 else
                     node.style.width = widths[i] + 'px';
                 node.style.left = sum + 'px';
+                if (widths[i] == 0) {
+                    node.style.display = 'none';
+                } else {
+                    node.style.display = '';
+                }
             }
             sum += widths[i];
         }
@@ -2473,7 +2483,7 @@ class TableView extends _abstractView_js__WEBPACK_IMPORTED_MODULE_2__.AbstractVi
                 return 0;
         }).reduce((a, b) => Math.max(a, b), 0));
         needed.push({base: actionWidth, grow: 0});
-        let availableToGrow = this.clientWidth - needed.map(x => x.base).reduce((a, b) => a + b, 0);
+        let availableToGrow = this.clientWidth - needed.map(x => x.base).reduce((a, b) => a + b, 0) - 1;
         let sumGrow = needed.map(x => x.grow).reduce((a, b) => a + b, 0);
         if (this.params?.wide) {
             return needed.map(x => x.base + x.grow * Math.max(100, availableToGrow / sumGrow));
