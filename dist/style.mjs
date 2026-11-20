@@ -285,8 +285,13 @@ data-view .foot {
   display: flex;
   justify-content: space-between;
 }
-data-view .foot .button-wrapper {
+data-view .foot .buttonWrapper {
   display: flex;
+}
+@media (max-width: 1000px) {
+  data-view .foot .buttonWrapper > :not(:first-child) {
+    display: none;
+  }
 }
 @media (max-width: 600px) {
   data-view .foot form input {
