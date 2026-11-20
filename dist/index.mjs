@@ -662,8 +662,10 @@ class ColumnFilter extends HTMLElement {
         }
         this.updateInput();
         [this.select, this.input].forEach(el => el.addEventListener('blur', (e) => {
-            if (this.matches(':focus-within, :focus')) return;
-            this.dispatchEvent(new CustomEvent('blur', {bubbles: true}));
+            setTimeout(() => {
+                if (this.matches(':focus-within, :focus')) return;
+                this.dispatchEvent(new CustomEvent('blur', {bubbles: true}));
+            }, 100);
         }));
     }
 
@@ -2249,36 +2251,39 @@ class TableView extends _abstractView_js__WEBPACK_IMPORTED_MODULE_2__.AbstractVi
                 }
             }
             if (column.isFilter) {
-                const filterBtn = (0,fast_creator__WEBPACK_IMPORTED_MODULE_1__.create)('.filterButton');
+                const filterBtn = (0,fast_creator__WEBPACK_IMPORTED_MODULE_1__.create)('.filterButton.icon-filter');
                 node.append(filterBtn)
-                filterBtn.onclick=e=>{e.stopPropagation();e.preventDefault();};
+                filterBtn.onclick = e => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                };
                 filterBtn.onmousedown = (e) => {
                     e.stopPropagation();
                     e.preventDefault();
                     const popup = (0,fast_creator__WEBPACK_IMPORTED_MODULE_1__.create)('div.filterPopup')
 
                     this.append(popup)
-                    popup.style.top = filterBtn.getBoundingClientRect().bottom + 'px';
+                    popup.style.top = (filterBtn.getBoundingClientRect().bottom - this.getBoundingClientRect().top) + 'px';
                     if (filterBtn.getBoundingClientRect().left > window.innerWidth / 2) {
-                        popup.style.right = (this.clientWidth - filterBtn.getBoundingClientRect().right) + 'px';
+                        popup.style.right = ((this.getBoundingClientRect().right - window.innerWidth) - (filterBtn.getBoundingClientRect().left-window.innerWidth)) + 'px';
                     } else {
-                        popup.style.left = filterBtn.getBoundingClientRect().left + 'px';
+                        popup.style.left = (filterBtn.getBoundingClientRect().left - this.getBoundingClientRect().left) + 'px';
                     }
                     const filter = new _ColumnFilter_js__WEBPACK_IMPORTED_MODULE_4__.ColumnFilter(column);
                     filter.addEventListener('blur', (e) => {
                         console.log('blur')
-                         //if (!popup.matches(':focus-within, :focus')) {
+                        //if (!popup.matches(':focus-within, :focus')) {
                         popup.remove();
                         // }
                     })
                     popup.append(filter)
                     filter.addEventListener('x-filter', (e) => {
                         console.log('dddd', e)
-                        this.objectsList.columnFilters.set(column.dataName??column.sortName, e.detail)
+                        this.objectsList.columnFilters.set(column.dataName ?? column.sortName, e.detail)
                         this.objectsList.refresh()
                     });
 
-                    const current = this.objectsList.columnFilters.get(column.dataName??column.sortName)
+                    const current = this.objectsList.columnFilters.get(column.dataName ?? column.sortName)
                     if (current) {
                         filter.set(current)
                     }

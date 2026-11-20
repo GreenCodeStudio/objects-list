@@ -101,6 +101,7 @@ data-view table-view {
   flex-grow: 1;
   overflow: auto;
   --rowHeight: 41px;
+  position: relative;
 }
 data-view table-view .head {
   position: sticky;
@@ -142,12 +143,16 @@ data-view table-view .head .column.ableToSort[data-order=desc]::before {
 data-view table-view .head .column.ableToSort .tableCopy {
   display: none;
 }
+data-view table-view .head .column.ableToSort:has(.filterButton)::before {
+  right: 16px;
+}
 data-view table-view .head .column .name {
   flex: 1 1 auto;
 }
 data-view table-view .head .column .filterButton {
   width: 16px;
-  background: red;
+  margin-right: -10px;
+  margin-left: 10px;
 }
 data-view table-view .body {
   position: relative;

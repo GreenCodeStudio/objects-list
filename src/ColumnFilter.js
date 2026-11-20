@@ -29,8 +29,10 @@ export class ColumnFilter extends HTMLElement {
         }
         this.updateInput();
         [this.select, this.input].forEach(el => el.addEventListener('blur', (e) => {
-            if (this.matches(':focus-within, :focus')) return;
-            this.dispatchEvent(new CustomEvent('blur', {bubbles: true}));
+            setTimeout(() => {
+                if (this.matches(':focus-within, :focus')) return;
+                this.dispatchEvent(new CustomEvent('blur', {bubbles: true}));
+            }, 100);
         }));
     }
 

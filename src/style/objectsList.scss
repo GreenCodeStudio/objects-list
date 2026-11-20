@@ -11,6 +11,7 @@ data-view {
         flex-grow: 1;
         overflow: auto;
         --rowHeight: 41px;
+        position:relative;
 
         .bodyContainer {
 
@@ -65,6 +66,11 @@ data-view {
                     .tableCopy {
                         display: none;
                     }
+                    &:has(.filterButton){
+                        &::before {
+                            right: 16px;
+                        }
+                    }
 
                 }
 
@@ -74,7 +80,8 @@ data-view {
 
                 .filterButton {
                     width: 16px;
-                    background: red;
+                    margin-right:-10px;
+                    margin-left: 10px;
                 }
 
 
