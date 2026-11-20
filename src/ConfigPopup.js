@@ -52,7 +52,6 @@ export class ConfigPopup extends HTMLElement {
         //         this.remove();
         // })
         this.querySelector('select').focus()
-        console.log('ssss')
         for (const checkbox of this.querySelectorAll('table input[type="checkbox"]')) {
             checkbox.checked = !objectsList.hiddenColumns.has(checkbox.dataset.name)
             checkbox.onchange = () => {
@@ -79,8 +78,7 @@ export class ConfigPopup extends HTMLElement {
         }
 
         for (const filterContainer of this.querySelectorAll('table .filter')) {
-            console.log('aa')
-            const filter = new ColumnFilter();
+            const filter = new ColumnFilter(objectsList.columns.find(c => (c.dataName ?? c.sortName) == filterContainer.dataset.name));
             filterContainer.append(filter)
             filter.addEventListener('x-filter', (e) => {
                 console.log('dddd', e)
@@ -89,7 +87,6 @@ export class ConfigPopup extends HTMLElement {
             });
             const current = objectsList.columnFilters.get(filterContainer.dataset.name)
             if (current) {
-                console.log('ffff')
                 filter.set(current)
             }
         }
@@ -135,7 +132,6 @@ export class ConfigPopup extends HTMLElement {
     }
 
     checkFocus() {
-        console.log('checkFocus')
         if (!this.matches(':focus-within, :focus'))
             this.remove();
 

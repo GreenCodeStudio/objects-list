@@ -122,6 +122,7 @@ data-view table-view .head .column {
   box-sizing: border-box;
   height: 19px;
   transform: translateX(var(--move-x));
+  display: flex;
 }
 data-view table-view .head .column.ableToSort {
   cursor: pointer;
@@ -140,6 +141,13 @@ data-view table-view .head .column.ableToSort[data-order=desc]::before {
 }
 data-view table-view .head .column.ableToSort .tableCopy {
   display: none;
+}
+data-view table-view .head .column .name {
+  flex: 1 1 auto;
+}
+data-view table-view .head .column .filterButton {
+  width: 16px;
+  background: red;
 }
 data-view table-view .body {
   position: relative;
@@ -182,6 +190,10 @@ data-view table-view .body .tr .td button, data-view table-view .body .tr .td .b
 }
 data-view table-view .body .tr .td.actions {
   display: flex;
+}
+data-view table-view .filterPopup {
+  position: absolute;
+  background: blueviolet;
 }
 data-view list-view {
   display: block;

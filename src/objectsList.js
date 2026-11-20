@@ -81,7 +81,6 @@ export class ObjectsList extends HTMLElement {
     }
 
     async refresh() {
-        console.log('refresh')
         this.classList.toggle('infiniteScrollEnabled', this.infiniteScrollEnabled);
 
         if (!this.insideView || !(this.insideView instanceof this.insideViewClass))
@@ -175,7 +174,6 @@ export class ObjectsList extends HTMLElement {
         const query = new URLSearchParams(document.location.search)
         const prev = Object.fromEntries([...query]);
         const next = new URLSearchParams(this.serializeParams(prev))
-        console.log('dddddcccc')
         console.log(query)
         if (prev.toString() !== next.toString()) {
             const url = new URL(document.location);
@@ -528,7 +526,6 @@ export class ObjectsList extends HTMLElement {
 
 
     reorderColumns(column, next) {
-        console.log('reorderColumns')
         if (column) {
             this.columnsReordered.splice(this.columnsReordered.indexOf(column), 1);
             if (next)

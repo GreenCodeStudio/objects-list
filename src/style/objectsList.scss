@@ -36,6 +36,7 @@ data-view {
                 box-sizing: border-box;
                 height: 19px;
                 transform: translateX(var(--move-x));
+                display: flex;
 
                 &.ableToSort {
                     //@extend .icon;
@@ -66,6 +67,16 @@ data-view {
                     }
 
                 }
+
+                .name {
+                    flex: 1 1 auto;
+                }
+
+                .filterButton {
+                    width: 16px;
+                    background: red;
+                }
+
 
             }
         }
@@ -120,6 +131,10 @@ data-view {
             }
         }
 
+        .filterPopup {
+            position: absolute;
+            background: blueviolet;
+        }
 
     }
 
@@ -206,12 +221,15 @@ data-view {
 
     graph-view {
         flex-grow: 1;
-        .bodyContainer{
+
+        .bodyContainer {
             height: 100%;
-            svg{
+
+            svg {
                 height: 100%;
                 width: 100%;
-                .lineGraph{
+
+                .lineGraph {
                     fill: none;
                     stroke: black;
                     stroke-width: 2px;
@@ -225,7 +243,7 @@ data-view {
         display: flex;
         justify-content: space-between;
 
-        .button-wrapper{
+        .button-wrapper {
             display: flex;
         }
 

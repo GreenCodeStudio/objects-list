@@ -4,120 +4,334 @@
         <node name="search">
             <value lang="pl">Szukaj</value>
             <value lang="en">Search</value>
+            <value lang="de">Suche</value>
+            <value lang="fr">Chercher</value>
+            <value lang="es">Buscar</value>
+            <value lang="it">Cerca</value>
+            <value lang="pt">Pesquisar</value>
+            <value lang="ru">Поиск</value>
+            <value lang="uk">Пошук</value>
         </node>
         <node name="paginationMode">
             <value lang="pl">Tryb paginacji</value>
             <value lang="en">Pagination mode</value>
+            <value lang="de">Paginierungsmodus</value>
+            <value lang="fr">Mode de pagination</value>
+            <value lang="es">Modo de paginación</value>
+            <value lang="it">Modalità di paginazione</value>
+            <value lang="pt">Modo de paginação</value>
+            <value lang="ru">Режим постраничного просмотра</value>
+            <value lang="uk">Режим посторінкового перегляду</value>
         </node>
         <node name="scrollMode">
             <value lang="pl">Tryb scrollowania</value>
             <value lang="en">Scroll mode</value>
+            <value lang="de">Scrollmodus</value>
+            <value lang="fr">Mode de défilement</value>
+            <value lang="es">Modo de desplazamiento</value>
+            <value lang="it">Modalità di scorrimento</value>
+            <value lang="pt">Modo de rolagem</value>
+            <value lang="ru">Режим прокрутки</value>
+            <value lang="uk">Режим прокрутки</value>
         </node>
         <node name="tableView">
             <value lang="pl">Widok tabeli</value>
             <value lang="en">Table view</value>
+            <value lang="de">Tabellenansicht</value>
+            <value lang="fr">Vue tableau</value>
+            <value lang="es">Vista de tabla</value>
+            <value lang="it">Vista tabella</value>
+            <value lang="pt">Vista de tabela</value>
+            <value lang="ru">Вид таблицы</value>
+            <value lang="uk">Вид таблиці</value>
         </node>
         <node name="tableWideView">
             <value lang="pl">Widok tabeli (szeroka)</value>
             <value lang="en">Table view (wide)</value>
+            <value lang="de">Tabellenansicht (breit)</value>
+            <value lang="fr">Vue tableau (large)</value>
+            <value lang="es">Vista de tabla (ancha)</value>
+            <value lang="it">Vista tabella (larga)</value>
+            <value lang="pt">Vista de tabela (larga)</value>
+            <value lang="ru">Вид таблицы (широкий)</value>
+            <value lang="uk">Вид таблиці (широкий)</value>
         </node>
         <node name="listView">
             <value lang="pl">Widok listy</value>
             <value lang="en">List view</value>
+            <value lang="de">Listenansicht</value>
+            <value lang="fr">Vue liste</value>
+            <value lang="es">Vista de lista</value>
+            <value lang="it">Vista elenco</value>
+            <value lang="pt">Vista de lista</value>
+            <value lang="ru">Вид списка</value>
+            <value lang="uk">Вид списку</value>
         </node>
         <node name="calendarView">
             <value lang="pl">Widok kalendarza</value>
             <value lang="en">Calendar view</value>
+            <value lang="de">Kalenderansicht</value>
+            <value lang="fr">Vue calendrier</value>
+            <value lang="es">Vista de calendario</value>
+            <value lang="it">Vista calendario</value>
+            <value lang="pt">Vista de calendário</value>
+            <value lang="ru">Вид календаря</value>
+            <value lang="uk">Вид календаря</value>
         </node>
         <node name="graphView">
             <value lang="pl">Widok wykresu</value>
             <value lang="en">Graph view</value>
+            <value lang="de">Diagrammansicht</value>
+            <value lang="fr">Vue graphique</value>
+            <value lang="es">Vista de gráfico</value>
+            <value lang="it">Vista grafico</value>
+            <value lang="pt">Vista de gráfico</value>
+            <value lang="ru">Вид графика</value>
+            <value lang="uk">Вид графіка</value>
         </node>
         <node name="startMultiEdit">
             <value lang="pl">Rozpocznij edycję wielu</value>
             <value lang="en">Start multi-edit</value>
+            <value lang="de">Mehrfachbearbeitung starten</value>
+            <value lang="fr">Démarrer l'édition multiple</value>
+            <value lang="es">Iniciar edición múltiple</value>
+            <value lang="it">Avvia modifica multipla</value>
+            <value lang="pt">Iniciar edição múltipla</value>
+            <value lang="ru">Начать множественное редактирование</value>
+            <value lang="uk">Почати множинне редагування</value>
         </node>
         <node name="saveRow">
             <value lang="pl">Zapisz wiersz</value>
             <value lang="en">Save a row</value>
+            <value lang="de">Zeile speichern</value>
+            <value lang="fr">Enregistrer une ligne</value>
+            <value lang="es">Guardar una fila</value>
+            <value lang="it">Salva una riga</value>
+            <value lang="pt">Salvar uma linha</value>
+            <value lang="ru">Сохранить строку</value>
+            <value lang="uk">Зберегти рядок</value>
         </node>
         <node name="mode">
             <value lang="pl">Tryb</value>
             <value lang="en">Mode</value>
+            <value lang="de">Modus</value>
+            <value lang="fr">Mode</value>
+            <value lang="es">Modo</value>
+            <value lang="it">Modalità</value>
+            <value lang="pt">Modo</value>
+            <value lang="ru">Режим</value>
+            <value lang="uk">Режим</value>
         </node>
         <node name="view">
             <value lang="pl">Widok</value>
             <value lang="en">View</value>
+            <value lang="de">Ansicht</value>
+            <value lang="fr">Vue</value>
+            <value lang="es">Vista</value>
+            <value lang="it">Vista</value>
+            <value lang="pt">Vista</value>
+            <value lang="ru">Вид</value>
+            <value lang="uk">Вид</value>
         </node>
         <node name="columnEnabled">
             <value lang="pl">Kolumna widoczna</value>
             <value lang="en">Column enabled</value>
+            <value lang="de">Spalte aktiviert</value>
+            <value lang="fr">Colonne activée</value>
+            <value lang="es">Columna habilitada</value>
+            <value lang="it">Colonna abilitata</value>
+            <value lang="pt">Coluna habilitada</value>
+            <value lang="ru">Столбец включен</value>
+            <value lang="uk">Стовпець увімкнено</value>
         </node>
         <node name="columnName">
             <value lang="pl">Nazwa kolumny</value>
             <value lang="en">Column name</value>
+            <value lang="de">Spaltenname</value>
+            <value lang="fr">Nom de la colonne</value>
+            <value lang="es">Nombre de la columna</value>
+            <value lang="it">Nome della colonna</value>
+            <value lang="pt">Nome da coluna</value>
+            <value lang="ru">Название столбца</value>
+            <value lang="uk">Назва стовпця</value>
         </node>
         <node name="columnFilter">
             <value lang="pl">Filtr</value>
             <value lang="en">Filter</value>
+            <value lang="de">Filter</value>
+            <value lang="fr">Filtre</value>
+            <value lang="es">Filtro</value>
+            <value lang="it">Filtro</value>
+            <value lang="pt">Filtro</value>
+            <value lang="ru">Фильтр</value>
+            <value lang="uk">Фільтр</value>
         </node>
         <node name="filtersCount">
             <value lang="pl">Liczba filtrów</value>
             <value lang="en">Filters count</value>
+            <value lang="de">Anzahl der Filter</value>
+            <value lang="fr">Nombre de filtres</value>
+            <value lang="es">Número de filtros</value>
+            <value lang="it">Numero di filtri</value>
+            <value lang="pt">Número de filtros</value>
+            <value lang="ru">Количество фильтров</value>
+            <value lang="uk">Кількість фільтрів</value>
         </node>
         <node name="clearFilters">
             <value lang="pl">Wyczyść filtry</value>
             <value lang="en">Clear filters</value>
+            <value lang="de">Filter löschen</value>
+            <value lang="fr">Effacer les filtres</value>
+            <value lang="es">Borrar filtros</value>
+            <value lang="it">Cancella filtri</value>
+            <value lang="pt">Limpar filtros</value>
+            <value lang="ru">Очистить фильтры</value>
+            <value lang="uk">Очистити фільтри</value>
         </node>
         <node name="search">
             <value lang="pl">Szukaj</value>
             <value lang="en">Search</value>
+            <value lang="de">Suche</value>
+            <value lang="fr">Chercher</value>
+            <value lang="es">Buscar</value>
+            <value lang="it">Cerca</value>
+            <value lang="pt">Pesquisar</value>
+            <value lang="ru">Поиск</value>
+            <value lang="uk">Пошук</value>
         </node>
         <node name="inNewTab">
             <value lang="pl">W nowej karcie</value>
             <value lang="en">In new tab</value>
+            <value lang="de">In neuem Tab</value>
+            <value lang="fr">Dans un nouvel onglet</value>
+            <value lang="es">En una nueva pestaña</value>
+            <value lang="it">In una nuova scheda</value>
+            <value lang="pt">Em uma nova aba</value>
+            <value lang="ru">В новой вкладке</value>
+            <value lang="uk">У новій вкладці</value>
         </node>
         <node name="visibilityLimitReached">
             <value lang="pl">Reszta pól została ukryta. Wszystkich pól: </value>
             <value lang="en">The rest of the fields have been hidden. All fields: </value>
+            <value lang="de">Der Rest der Felder wurde ausgeblendet. Alle Felder: </value>
+            <value lang="fr">Le reste des champs a été masqué. Tous les champs : </value>
+            <value lang="es">El resto de los campos se han ocultado. Todos los campos: </value>
+            <value lang="it">Il resto dei campi è stato nascosto. Tutti i campi: </value>
+            <value lang="pt">O resto dos campos foi ocultado. Todos os campos: </value>
+            <value lang="ru">Остальные поля были скрыты. Все поля: </value>
+            <value lang="uk">Решта полів були приховані. Всі поля: </value>
         </node>
         <node name="sort">
             <value lang="pl">Sortuj</value>
             <value lang="en">Sort</value>
+            <value lang="de">Sortieren</value>
+            <value lang="fr">Trier</value>
+            <value lang="es">Ordenar</value>
+            <value lang="it">Ordina</value>
+            <value lang="pt">Ordenar</value>
+            <value lang="ru">Сортировать</value>
+            <value lang="uk">Сортувати</value>
         </node>
     </node>
     <node name="filter">
         <node name="none">
             <value lang="pl">Brak</value>
             <value lang="en">None</value>
+            <value lang="de">Keine</value>
+            <value lang="fr">Aucun</value>
+            <value lang="es">Ninguno</value>
+            <value lang="it">Nessuno</value>
+            <value lang="pt">Nenhum</value>
+            <value lang="ru">Нет</value>
+            <value lang="uk">Жоден</value>
         </node>
         <node name="equals">
             <value lang="pl">Równa się</value>
             <value lang="en">Equals</value>
+            <value lang="de">Gleich</value>
+            <value lang="fr">Égal</value>
+            <value lang="es">Igual</value>
+            <value lang="it">Uguale</value>
+            <value lang="pt">Igual</value>
+            <value lang="ru">Равно</value>
+            <value lang="uk">Дорівнює</value>
         </node>
         <node name="notEquals">
             <value lang="pl">Nie równa się</value>
             <value lang="en">Not equals</value>
+            <value lang="de">Ungleich</value>
+            <value lang="fr">Pas égal</value>
+            <value lang="es">No igual</value>
+            <value lang="it">Non uguale</value>
+            <value lang="pt">Não igual</value>
+            <value lang="ru">Не равно</value>
+            <value lang="uk">Не дорівнює</value>
         </node>
         <node name="lessThan">
             <value lang="pl">Mniejsze niż</value>
             <value lang="en">Less than</value>
+            <value lang="de">Weniger als</value>
+            <value lang="fr">Moins que</value>
+            <value lang="es">Menos que</value>
+            <value lang="it">Meno di</value>
+            <value lang="pt">Menos que</value>
+            <value lang="ru">Меньше чем</value>
+            <value lang="uk">Менше ніж</value>
         </node>
         <node name="greaterThan">
             <value lang="pl">Większe niż</value>
             <value lang="en">Greater than</value>
+            <value lang="de">Größer als</value>
+            <value lang="fr">Plus grand que</value>
+            <value lang="es">Mayor que</value>
+            <value lang="it">Maggiore di</value>
+            <value lang="pt">Maior que</value>
+            <value lang="ru">Больше чем</value>
+            <value lang="uk">Більше ніж</value>
+        </node>
+        <node name="range">
+            <value lang="pl">Zakres</value>
+            <value lang="en">Range</value>
+            <value lang="de">Bereich</value>
+            <value lang="fr">Plage</value>
+            <value lang="es">Rango</value>
+            <value lang="it">Intervallo</value>
+            <value lang="pt">Intervalo</value>
+            <value lang="ru">Диапазон</value>
+            <value lang="uk">Діапазон</value>
         </node>
         <node name="contains">
             <value lang="pl">Zawiera</value>
             <value lang="en">Contains</value>
+            <value lang="de">Enthält</value>
+            <value lang="fr">Contient</value>
+            <value lang="es">Contiene</value>
+            <value lang="it">Contiene</value>
+            <value lang="pt">Contém</value>
+            <value lang="ru">Содержит</value>
+            <value lang="uk">Містить</value>
         </node>
         <node name="oneOf">
             <value lang="pl">Jedno z</value>
             <value lang="en">One of</value>
+            <value lang="de">Eines von</value>
+            <value lang="fr">Un de</value>
+            <value lang="es">Uno de</value>
+            <value lang="it">Uno di</value>
+            <value lang="pt">Um de</value>
+            <value lang="ru">Один из</value>
+            <value lang="uk">Один з</value>
         </node>
         <node name="empty">
             <value lang="pl">Puste</value>
             <value lang="en">Empty</value>
+            <value lang="de">Leer</value>
+            <value lang="fr">Vide</value>
+            <value lang="es">Vacío</value>
+            <value lang="it">Vuoto</value>
+            <value lang="pt">Vazio</value>
+            <value lang="ru">Пусто</value>
+            <value lang="uk">Порожньо</value>
         </node>
     </node>
 </root>

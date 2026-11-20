@@ -2,6 +2,7 @@ import {ContextMenu} from "@green-code-studio/context-menu/dist/index.mjs";
 import {create} from "fast-creator";
 import {AbstractView} from "./abstractView.js";
 import {t} from "./i18n.xml";
+import {ColumnFilter} from "./ColumnFilter.js";
 
 export class TableView extends AbstractView {
     constructor(objectsList, params) {
@@ -29,7 +30,6 @@ export class TableView extends AbstractView {
     refreshHeader() {
         while (this.head.firstChild) this.head.firstChild.remove();
 
-        console.log('uuu')
         this.head.append(create('.column.icon'))
         for (let column of this.objectsList.visibleColumns) {
             let node = create('.column')
@@ -51,6 +51,43 @@ export class TableView extends AbstractView {
                     }
                     this.objectsList.refresh();
                 }
+            }
+            if (column.isFilter) {
+                const filterBtn = create('.filterButton');
+                node.append(filterBtn)
+                filterBtn.onclick=e=>{e.stopPropagation();e.preventDefault();};
+                filterBtn.onmousedown = (e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    const popup = create('div.filterPopup')
+
+                    this.append(popup)
+                    popup.style.top = filterBtn.getBoundingClientRect().bottom + 'px';
+                    if (filterBtn.getBoundingClientRect().left > window.innerWidth / 2) {
+                        popup.style.right = (this.clientWidth - filterBtn.getBoundingClientRect().right) + 'px';
+                    } else {
+                        popup.style.left = filterBtn.getBoundingClientRect().left + 'px';
+                    }
+                    const filter = new ColumnFilter(column);
+                    filter.addEventListener('blur', (e) => {
+                        console.log('blur')
+                         //if (!popup.matches(':focus-within, :focus')) {
+                        popup.remove();
+                        // }
+                    })
+                    popup.append(filter)
+                    filter.addEventListener('x-filter', (e) => {
+                        console.log('dddd', e)
+                        this.objectsList.columnFilters.set(column.dataName??column.sortName, e.detail)
+                        this.objectsList.refresh()
+                    });
+
+                    const current = this.objectsList.columnFilters.get(column.dataName??column.sortName)
+                    if (current) {
+                        filter.set(current)
+                    }
+                    popup.querySelector('select').focus();
+                };
             }
             this.initColumnMovability(node)
         }

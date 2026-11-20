@@ -131,7 +131,6 @@ export class AbstractView extends HTMLElement {
     }
 
     trOnKeyDown(row, tr, e) {
-        console.log('trOnKeyDown')
         if (e.key === 'Enter') {
             let action = this.objectsList.generateActions(this.objectsList.getSelectedData(), 'enter').find(x => x.main);
             if (action) {
